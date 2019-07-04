@@ -11,3 +11,16 @@ The 3CX Call Flow Designer requires a 3CX PRO licence.
 
 [![Migrating V15.5 Call Flow Projects to V16](http://img.youtube.com/vi/sWmIJ_pxdYo/0.jpg)](https://www.youtube.com/watch?v=sWmIJ_pxdYo)
 
+## Using the samples
+To start using these projects, you'll need to clone the projects.
+
+Clone this repository by executing the following command in your console:
+
+> git clone https://github.com/3cx/cfd-demos.git
+
+Navigate to the cloned repository folder which should be the same as the repository name:
+
+> cd cfd-demos
+
+Choose a sample project and open it with 3CX Call Flow Designer
+
