@@ -8,5 +8,6 @@ The 3CX Call Flow Designer requires a 3CX PRO licence.
 * [How does it work?](https://www.3cx.com/docs/manual/cfd-installation/#h.kf48zybcuj57)
 * [Terminology](https://www.3cx.com/docs/manual/cfd-installation/#h.1qq7k8c0b7ca)
 * Migrating V15.5 Call Flow Projects to V16
+
 [![Migrating V15.5 Call Flow Projects to V16](http://img.youtube.com/vi/sWmIJ_pxdYo/0.jpg)](https://www.youtube.com/watch?v=sWmIJ_pxdYo)
 
