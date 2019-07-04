@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<File>
+  <Version>2.0</Version>
+  <Variables>
+    <ArrayOfVariable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+  </Variables>
+  <Flows>
+    <MainFlow>
+      <ns0:MainFlow Description="Callflow execution path." DebugModeActive="False" x:Name="MainDialer" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=16.0.0.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e">
+        <ns0:ExecuteCSharpCodeComponent ReturnsValue="True" Code="return ((int)DateTime.Now.DayOfWeek) &gt; 0 &amp;&amp; ((int)DateTime.Now.DayOfWeek) &lt; 6 &amp;&amp; DateTime.Now.Hour &gt;= 9 &amp;&amp; DateTime.Now.Hour &lt; 17;" ParameterList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfScriptParameter xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; /&gt;" MethodName="IsTimeToCall" DebugModeActive="False" x:Name="timeChecker" />
+        <ns0:ConditionalComponent DebugModeActive="False" x:Name="checkTimeToCall">
+          <ns0:ConditionalComponentBranch Condition="timeChecker.ReturnValue" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="timeToCall">
+            <ns0:ExternalCodeExecutionComponent ReturnsValue="True" ParameterList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfScriptParameter xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; /&gt;" MethodName="IsThereAnyFreeExtension" DebugModeActive="False" ClassName="ExtensionStateHelper" LibraryFileName="CheckExtensionsState.cs" x:Name="checkFreeExtensions" />
+            <ns0:ConditionalComponent DebugModeActive="False" x:Name="isThereAnyFreeExtension">
+              <ns0:ConditionalComponentBranch Condition="checkFreeExtensions.ReturnValue" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="yesMakeCall">
+                <ns0:ExternalCodeExecutionComponent ReturnsValue="True" ParameterList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfScriptParameter xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; /&gt;" MethodName="GetCallIndex" DebugModeActive="False" ClassName="CallIndexHolder" LibraryFileName="CallIndexHolder.cs" x:Name="getCallIndex" />
+                <ns0:FileManagementComponent x:Name="readNumberToCall" FileName="&quot;C:\\Path\\To\\NumbersFile\\NumbersToCall.txt&quot;" AppendFinalCrLf="True" FirstLineToRead="getCallIndex.ReturnValue" OpenMode="Open" DebugModeActive="False" Action="Read" LinesToRead="1" Content="" ReadToEnd="false" />
+                <ns0:ConditionalComponent DebugModeActive="False" x:Name="checkNumberAvailable">
+                  <ns0:ConditionalComponentBranch Condition="GREAT_THAN(LEN(TRIM(readNumberToCall.Result)),0)" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="numberAvailable">
+                    <ns0:ExternalCodeExecutionComponent ReturnsValue="False" ParameterList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfScriptParameter xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;ScriptParameter&gt;&lt;Name&gt;index&lt;/Name&gt;&lt;Value&gt;SUM(1,getCallIndex.ReturnValue)&lt;/Value&gt;&lt;Type&gt;Int32&lt;/Type&gt;&lt;/ScriptParameter&gt;&lt;/ArrayOfScriptParameter&gt;" MethodName="SetCallIndex" DebugModeActive="False" ClassName="CallIndexHolder" LibraryFileName="CallIndexHolder.cs" x:Name="incrementCallIndex" />
+                    <ns0:MakeCallComponent Origin="TRIM(readNumberToCall.Result)" DebugModeActive="False" Timeout="30" Destination="&quot;800&quot;" x:Name="doMakeCall" />
+                  </ns0:ConditionalComponentBranch>
+                </ns0:ConditionalComponent>
+              </ns0:ConditionalComponentBranch>
+              <ns0:ConditionalComponentBranch Condition="" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="noFreeExtensions">
+                <ns0:LoggerComponent DebugModeActive="False" Text="&quot;No free extensions, call will not be made now&quot;" Level="Info" x:Name="logNoFreeExtensions" />
+              </ns0:ConditionalComponentBranch>
+            </ns0:ConditionalComponent>
+          </ns0:ConditionalComponentBranch>
+          <ns0:ConditionalComponentBranch Condition="" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="nothingToDo">
+            <ns0:LoggerComponent DebugModeActive="False" Text="&quot;Not making calls because of time of day restrictions&quot;" Level="Info" x:Name="logOutOfTimeFrame" />
+          </ns0:ConditionalComponentBranch>
+        </ns0:ConditionalComponent>
+      </ns0:MainFlow>
+    </MainFlow>
+    <ErrorHandlerFlow>
+      <ns0:ErrorHandlerFlow Description="Execution path when an error ocurrs." DebugModeActive="False" x:Name="MainDialer" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=16.0.0.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e" />
+    </ErrorHandlerFlow>
+  </Flows>
+</File>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<File>
+  <Version>2.0</Version>
+  <Variables>
+    <ArrayOfVariable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+  </Variables>
+  <Flows>
+    <MainFlow>
+      <ns0:MainFlow Description="Callflow execution path." DebugModeActive="False" x:Name="Main" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=15.0.5393.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e">
+        <ns0:UserInputComponent FinalDigitTimeout="2" StopDigit="DigitPound" IsValidDigit_3="True" IsValidDigit_0="True" IsValidDigit_1="True" IsValidDigit_Pound="False" InvalidDigitPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; /&gt;" IsValidDigit_7="True" IsValidDigit_4="True" IsValidDigit_5="True" SubsequentPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; /&gt;" IsValidDigit_2="True" InterDigitTimeout="3" IsValidDigit_6="True" MinDigits="3" InitialPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;AudioFilePrompt&quot;&gt;&lt;AudioFileName&gt;InitialPrompt.wav&lt;/AudioFileName&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" x:Name="requestPIN" MaxRetryCount="3" DebugModeActive="False" FirstDigitTimeout="5" MaxDigits="6" AllowDtmfInput="True" IsValidDigit_8="True" IsValidDigit_9="True" IsValidDigit_Star="False" TimeoutPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; /&gt;">
+          <ns0:ComponentBranch DisplayedText="Valid Input" Description="Execution path when the specified branch is activated." DebugModeActive="False" x:Name="componentBranch1">
+            <ns0:DatabaseAccessComponent Port="1433" Timeout="30" UserName="&quot;username&quot;" x:Name="validatePIN" Password="&quot;password&quot;" StatementType="Scalar" ParameterList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfParameter xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Parameter&gt;&lt;Name&gt;id&lt;/Name&gt;&lt;Value&gt;requestPIN.Buffer&lt;/Value&gt;&lt;/Parameter&gt;&lt;/ArrayOfParameter&gt;" Database="&quot;CustomersDatabase&quot;" DatabaseType="SqlServer" SqlStatement="SELECT count(*) FROM customers WHERE id={0}" Server="&quot;localhost&quot;" DebugModeActive="False" />
+            <ns0:ConditionalComponent DebugModeActive="False" x:Name="validateDatabaseResult">
+              <ns0:ConditionalComponentBranch Condition="EQUAL(validatePIN.ScalarResult,1)" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="success">
+                <ns0:PromptPlaybackComponent DebugModeActive="False" AllowDtmfInput="True" PromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;AudioFilePrompt&quot;&gt;&lt;AudioFileName&gt;Success.wav&lt;/AudioFileName&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" x:Name="playSuccess" />
+                <ns0:TransferComponent Destination="&quot;100&quot;" DebugModeActive="False" x:Name="transferToOperator" />
+              </ns0:ConditionalComponentBranch>
+              <ns0:ConditionalComponentBranch Condition="" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="error">
+                <ns0:PromptPlaybackComponent DebugModeActive="False" AllowDtmfInput="True" PromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;AudioFilePrompt&quot;&gt;&lt;AudioFileName&gt;ValidationError.wav&lt;/AudioFileName&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" x:Name="playValidationError" />
+              </ns0:ConditionalComponentBranch>
+            </ns0:ConditionalComponent>
+          </ns0:ComponentBranch>
+          <ns0:ComponentBranch DisplayedText="Invalid Input" Description="Execution path when the specified branch is activated." DebugModeActive="False" x:Name="componentBranch2">
+            <ns0:PromptPlaybackComponent DebugModeActive="False" AllowDtmfInput="True" PromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;AudioFilePrompt&quot;&gt;&lt;AudioFileName&gt;InvalidPIN.wav&lt;/AudioFileName&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" x:Name="playInvalidInput" />
+          </ns0:ComponentBranch>
+        </ns0:UserInputComponent>
+      </ns0:MainFlow>
+    </MainFlow>
+    <ErrorHandlerFlow>
+      <ns0:ErrorHandlerFlow Description="Execution path when an error ocurrs." DebugModeActive="False" x:Name="Main" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=15.0.5393.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e" />
+    </ErrorHandlerFlow>
+    <DisconnectHandlerFlow>
+      <ns0:DisconnectHandlerFlow Description="Execution path since the call gets disconnected." DebugModeActive="False" x:Name="Main" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=15.0.5393.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e" />
+    </DisconnectHandlerFlow>
+  </Flows>
+</File>

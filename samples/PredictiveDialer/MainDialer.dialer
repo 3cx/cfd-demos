@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<File>
+  <Version>2.0</Version>
+  <Variables>
+    <ArrayOfVariable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+  </Variables>
+  <Flows>
+    <MainFlow>
+      <ns0:MainFlow Description="Callflow execution path." DebugModeActive="False" x:Name="MainDialer" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=15.0.5421.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e">
+        <ns0:DateTimeConditionalComponent DebugModeActive="False" x:Name="checkTimeToCall">
+          <ns0:DateTimeConditionalComponentBranch DIDFilter="AllDIDs" Description="Execution path when the specified date and time condition is met." DebugModeActive="False" DIDFilterList="" DateTimeConditionList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfDateTimeCondition xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;DateTimeCondition xsi:type=&quot;DayOfWeekDateTimeCondition&quot;&gt;&lt;SundayChecked&gt;false&lt;/SundayChecked&gt;&lt;MondayChecked&gt;true&lt;/MondayChecked&gt;&lt;TuesdayChecked&gt;true&lt;/TuesdayChecked&gt;&lt;WednesdayChecked&gt;true&lt;/WednesdayChecked&gt;&lt;ThursdayChecked&gt;true&lt;/ThursdayChecked&gt;&lt;FridayChecked&gt;true&lt;/FridayChecked&gt;&lt;SaturdayChecked&gt;false&lt;/SaturdayChecked&gt;&lt;HourFrom&gt;9&lt;/HourFrom&gt;&lt;MinuteFrom&gt;0&lt;/MinuteFrom&gt;&lt;HourTo&gt;16&lt;/HourTo&gt;&lt;MinuteTo&gt;59&lt;/MinuteTo&gt;&lt;/DateTimeCondition&gt;&lt;/ArrayOfDateTimeCondition&gt;" x:Name="timeToCall">
+            <ns0:DatabaseAccessComponent Port="1433" Timeout="30" UserName="&quot;user&quot;" x:Name="getNextNumber" Password="&quot;pass&quot;" UseConnectionString="False" StatementType="Scalar" ParameterList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfParameter xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; /&gt;" Database="&quot;PredictiveDialerDB&quot;" DatabaseType="SqlServer" SqlStatement="SELECT number_to_call FROM NumbersToCall" ConnectionString="" Server="&quot;localhost&quot;" DebugModeActive="False" />
+            <ns0:ConditionalComponent DebugModeActive="False" x:Name="checkNumberAvailable">
+              <ns0:ConditionalComponentBranch Condition="GREAT_THAN(LEN(TRIM(getNextNumber.ScalarResult)),0)" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="numberAvailable">
+                <ns0:MakeCallComponent Origin="TRIM(getNextNumber.ScalarResult)" DebugModeActive="False" Destination="&quot;800&quot;" x:Name="doMakeCall" />
+              </ns0:ConditionalComponentBranch>
+            </ns0:ConditionalComponent>
+          </ns0:DateTimeConditionalComponentBranch>
+        </ns0:DateTimeConditionalComponent>
+      </ns0:MainFlow>
+    </MainFlow>
+    <ErrorHandlerFlow>
+      <ns0:ErrorHandlerFlow Description="Execution path when an error ocurrs." DebugModeActive="False" x:Name="MainDialer" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=15.0.5421.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e" />
+    </ErrorHandlerFlow>
+  </Flows>
+</File>

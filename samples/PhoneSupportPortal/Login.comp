@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<File>
+  <Version>2.0</Version>
+  <Variables>
+    <ArrayOfVariable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <Variable>
+        <Name>LoopCount</Name>
+        <InitialValue>0</InitialValue>
+        <Scope>Private</Scope>
+        <ShowScopeProperty>true</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+    </ArrayOfVariable>
+  </Variables>
+  <Flows>
+    <MainFlow>
+      <ns0:MainFlow Description="Callflow execution path." DebugModeActive="False" x:Name="Login" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=15.0.5400.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e">
+        <ns0:LoopComponent Condition="LESS_THAN(callflow$.LoopCount,3)" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="loginLoop">
+          <ns0:UserInputComponent FinalDigitTimeout="2" StopDigit="DigitPound" IsValidDigit_3="True" IsValidDigit_0="True" IsValidDigit_1="True" IsValidDigit_Pound="False" InvalidDigitPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;AudioFilePrompt&quot;&gt;&lt;AudioFileName&gt;invalid_digit.wav&lt;/AudioFileName&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" IsValidDigit_7="True" IsValidDigit_4="True" IsValidDigit_5="True" SubsequentPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;AudioFilePrompt&quot;&gt;&lt;AudioFileName&gt;enter_customer_id.wav&lt;/AudioFileName&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" IsValidDigit_2="True" InterDigitTimeout="3" IsValidDigit_6="True" MinDigits="5" InitialPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;AudioFilePrompt&quot;&gt;&lt;AudioFileName&gt;enter_customer_id.wav&lt;/AudioFileName&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" x:Name="requestCustomerID" MaxRetryCount="3" DebugModeActive="False" FirstDigitTimeout="5" MaxDigits="10" AllowDtmfInput="True" IsValidDigit_8="True" IsValidDigit_9="True" IsValidDigit_Star="False" TimeoutPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;AudioFilePrompt&quot;&gt;&lt;AudioFileName&gt;timeout.wav&lt;/AudioFileName&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;">
+            <ns0:ComponentBranch DisplayedText="Valid Input" Description="Execution path when the specified branch is activated." DebugModeActive="False" x:Name="componentBranch1" />
+            <ns0:ComponentBranch DisplayedText="Invalid Input" Description="Execution path when the specified branch is activated." DebugModeActive="False" x:Name="componentBranch2">
+              <ns0:PromptPlaybackComponent DebugModeActive="False" AllowDtmfInput="True" PromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;AudioFilePrompt&quot;&gt;&lt;AudioFileName&gt;transfer_to_sales.wav&lt;/AudioFileName&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" x:Name="preTransferMsg" />
+              <ns0:TransferComponent Destination="project$.SalesTeamExtension" DebugModeActive="False" x:Name="transferToSales" />
+            </ns0:ComponentBranch>
+          </ns0:UserInputComponent>
+          <ns0:UserInputComponent FinalDigitTimeout="2" StopDigit="DigitPound" IsValidDigit_3="True" IsValidDigit_0="True" IsValidDigit_1="True" IsValidDigit_Pound="False" InvalidDigitPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;AudioFilePrompt&quot;&gt;&lt;AudioFileName&gt;invalid_digit.wav&lt;/AudioFileName&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" IsValidDigit_7="True" IsValidDigit_4="True" IsValidDigit_5="True" SubsequentPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;AudioFilePrompt&quot;&gt;&lt;AudioFileName&gt;enter_customer_pin.wav&lt;/AudioFileName&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" IsValidDigit_2="True" InterDigitTimeout="3" IsValidDigit_6="True" MinDigits="5" InitialPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;AudioFilePrompt&quot;&gt;&lt;AudioFileName&gt;enter_customer_pin.wav&lt;/AudioFileName&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" x:Name="requestCustomerPIN" MaxRetryCount="3" DebugModeActive="False" FirstDigitTimeout="5" MaxDigits="10" AllowDtmfInput="True" IsValidDigit_8="True" IsValidDigit_9="True" IsValidDigit_Star="False" TimeoutPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;AudioFilePrompt&quot;&gt;&lt;AudioFileName&gt;timeout.wav&lt;/AudioFileName&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;">
+            <ns0:ComponentBranch DisplayedText="Valid Input" Description="Execution path when the specified branch is activated." DebugModeActive="False" x:Name="componentBranch3" />
+            <ns0:ComponentBranch DisplayedText="Invalid Input" Description="Execution path when the specified branch is activated." DebugModeActive="False" x:Name="componentBranch4">
+              <ns0:PromptPlaybackComponent DebugModeActive="False" AllowDtmfInput="True" PromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;AudioFilePrompt&quot;&gt;&lt;AudioFileName&gt;transfer_to_sales.wav&lt;/AudioFileName&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" x:Name="preTransferMsg2" />
+              <ns0:TransferComponent Destination="project$.SalesTeamExtension" DebugModeActive="False" x:Name="transferToSales2" />
+            </ns0:ComponentBranch>
+          </ns0:UserInputComponent>
+          <ns0:UserComponent PublicProperties="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfUserProperty xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;UserProperty&gt;&lt;Name&gt;CustomerID&lt;/Name&gt;&lt;Value xsi:type=&quot;xsd:string&quot;&gt;requestCustomerID.Buffer&lt;/Value&gt;&lt;/UserProperty&gt;&lt;UserProperty&gt;&lt;Name&gt;CustomerPIN&lt;/Name&gt;&lt;Value xsi:type=&quot;xsd:string&quot;&gt;requestCustomerPIN.Buffer&lt;/Value&gt;&lt;/UserProperty&gt;&lt;UserProperty&gt;&lt;Name&gt;ValidationResult&lt;/Name&gt;&lt;Value xsi:type=&quot;xsd:string&quot;&gt;&lt;/Value&gt;&lt;/UserProperty&gt;&lt;/ArrayOfUserProperty&gt;" DebugModeActive="False" RelativeFilePath="ValidateDataDB.comp" x:Name="validateData" />
+          <ns0:ConditionalComponent DebugModeActive="False" x:Name="checkValidationResult">
+            <ns0:ConditionalComponentBranch Condition="EQUAL(validateData.ValidationResult,true)" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="isSuccess">
+              <ns0:PromptPlaybackComponent DebugModeActive="False" AllowDtmfInput="True" PromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;AudioFilePrompt&quot;&gt;&lt;AudioFileName&gt;transfer_to_help_desk.wav&lt;/AudioFileName&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" x:Name="preTransferToHelpDeskMsg" />
+              <ns0:TransferComponent Destination="project$.HelpDeskExtension" DebugModeActive="False" x:Name="transferToHelpDesk" />
+            </ns0:ConditionalComponentBranch>
+            <ns0:ConditionalComponentBranch Condition="" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="isError">
+              <ns0:IncrementVariableComponent DebugModeActive="False" VariableName="callflow$.LoopCount" x:Name="incrementLoopCount" />
+            </ns0:ConditionalComponentBranch>
+          </ns0:ConditionalComponent>
+        </ns0:LoopComponent>
+      </ns0:MainFlow>
+    </MainFlow>
+    <ErrorHandlerFlow>
+      <ns0:ErrorHandlerFlow Description="Execution path when an error ocurrs." DebugModeActive="False" x:Name="Login" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=15.0.5400.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e" />
+    </ErrorHandlerFlow>
+    <DisconnectHandlerFlow>
+      <ns0:DisconnectHandlerFlow Description="Execution path since the call gets disconnected." DebugModeActive="False" x:Name="Login" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=15.0.5400.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e" />
+    </DisconnectHandlerFlow>
+  </Flows>
+</File>

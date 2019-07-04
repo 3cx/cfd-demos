@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<File>
+  <Version>2.0</Version>
+  <Variables>
+    <ArrayOfVariable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+  </Variables>
+  <Flows>
+    <MainFlow>
+      <ns0:MainFlow Description="Callflow execution path." DebugModeActive="False" x:Name="Main" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=15.0.5393.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e">
+        <ns0:RecordComponent SaveToFile="true" FileName="CONCATENATE(&quot;CallFrom_&quot;,session.ani,&quot;.wav&quot;)" Beep="True" TerminateByDtmf="True" DebugModeActive="False" MaxTime="60" PromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;AudioFilePrompt&quot;&gt;&lt;AudioFileName&gt;RecordYourMessage.wav&lt;/AudioFileName&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" x:Name="recordYourMessage">
+          <ns0:ComponentBranch DisplayedText="Nothing Recorded" Description="Execution path when the specified branch is activated." DebugModeActive="False" x:Name="componentBranch1" />
+          <ns0:ComponentBranch DisplayedText="Audio Recorded" Description="Execution path when the specified branch is activated." DebugModeActive="False" x:Name="componentBranch2">
+            <ns0:EMailSenderComponent Port="587" UserName="&quot;sender@example.com&quot;" Subject="CONCATENATE(&quot;New audio from Caller: &quot;,session.ani)" x:Name="sendMail" Priority="Normal" Password="&quot;senderpassword&quot;" EnableSSL="false" From="&quot;sender@example.com&quot;" IsBodyHtml="False" AttachmentList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfMailAttachment xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;MailAttachment&gt;&lt;Name&gt;Recording.wav&lt;/Name&gt;&lt;File&gt;CONCATENATE(session.audioFolder,&quot;/CallFrom_&quot;,session.ani,&quot;.wav&quot;)&lt;/File&gt;&lt;/MailAttachment&gt;&lt;/ArrayOfMailAttachment&gt;" IgnoreMissingAttachments="False" CC="" BCC="" Server="&quot;smtp.gmail.com&quot;" DebugModeActive="False" To="&quot;destination@example.com&quot;" Body="&quot;Please find attached the recording.&quot;" />
+          </ns0:ComponentBranch>
+        </ns0:RecordComponent>
+      </ns0:MainFlow>
+    </MainFlow>
+    <ErrorHandlerFlow>
+      <ns0:ErrorHandlerFlow Description="Execution path when an error ocurrs." DebugModeActive="False" x:Name="Main" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=15.0.5393.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e" />
+    </ErrorHandlerFlow>
+    <DisconnectHandlerFlow>
+      <ns0:DisconnectHandlerFlow Description="Execution path since the call gets disconnected." DebugModeActive="False" x:Name="Main" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=15.0.5393.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e" />
+    </DisconnectHandlerFlow>
+  </Flows>
+</File>

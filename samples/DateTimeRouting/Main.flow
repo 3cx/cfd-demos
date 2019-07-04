@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<File>
+  <Version>2.0</Version>
+  <Variables>
+    <ArrayOfVariable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <Variable>
+        <Name>BusinessClosedQueue</Name>
+        <InitialValue>800</InitialValue>
+        <Accessibility>ReadOnly</Accessibility>
+        <ShowScopeProperty>false</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+      <Variable>
+        <Name>PromotionsQueue</Name>
+        <InitialValue>801</InitialValue>
+        <Accessibility>ReadOnly</Accessibility>
+        <ShowScopeProperty>false</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+      <Variable>
+        <Name>StandardQueue</Name>
+        <InitialValue>802</InitialValue>
+        <Accessibility>ReadOnly</Accessibility>
+        <ShowScopeProperty>false</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+    </ArrayOfVariable>
+  </Variables>
+  <Flows>
+    <MainFlow>
+      <ns0:MainFlow Description="Callflow execution path." DebugModeActive="False" x:Name="Main" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=16.0.50.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e">
+        <ns0:DateTimeConditionalComponent DebugModeActive="False" x:Name="dateTimeCondition">
+          <ns0:DateTimeConditionalComponentBranch DIDFilter="AllDIDs" Description="Execution path when the specified date and time condition is met." DebugModeActive="False" DIDFilterList="" DateTimeConditionList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfDateTimeCondition xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;DateTimeCondition xsi:type=&quot;ServerOutOfOfficeHoursDateTimeCondition&quot; /&gt;&lt;/ArrayOfDateTimeCondition&gt;" x:Name="businessClosed">
+            <ns0:TransferComponent Destination="callflow$.BusinessClosedQueue" DebugModeActive="False" x:Name="transferBusinessClosed" />
+          </ns0:DateTimeConditionalComponentBranch>
+          <ns0:DateTimeConditionalComponentBranch DIDFilter="AllDIDs" Description="Execution path when the specified date and time condition is met." DebugModeActive="False" DIDFilterList="" DateTimeConditionList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfDateTimeCondition xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;DateTimeCondition xsi:type=&quot;DayOfWeekDateTimeCondition&quot;&gt;&lt;SundayChecked&gt;false&lt;/SundayChecked&gt;&lt;MondayChecked&gt;true&lt;/MondayChecked&gt;&lt;TuesdayChecked&gt;false&lt;/TuesdayChecked&gt;&lt;WednesdayChecked&gt;true&lt;/WednesdayChecked&gt;&lt;ThursdayChecked&gt;false&lt;/ThursdayChecked&gt;&lt;FridayChecked&gt;true&lt;/FridayChecked&gt;&lt;SaturdayChecked&gt;false&lt;/SaturdayChecked&gt;&lt;HourFrom&gt;9&lt;/HourFrom&gt;&lt;MinuteFrom&gt;0&lt;/MinuteFrom&gt;&lt;HourTo&gt;11&lt;/HourTo&gt;&lt;MinuteTo&gt;59&lt;/MinuteTo&gt;&lt;/DateTimeCondition&gt;&lt;DateTimeCondition xsi:type=&quot;DayOfWeekDateTimeCondition&quot;&gt;&lt;SundayChecked&gt;false&lt;/SundayChecked&gt;&lt;MondayChecked&gt;true&lt;/MondayChecked&gt;&lt;TuesdayChecked&gt;false&lt;/TuesdayChecked&gt;&lt;WednesdayChecked&gt;true&lt;/WednesdayChecked&gt;&lt;ThursdayChecked&gt;false&lt;/ThursdayChecked&gt;&lt;FridayChecked&gt;true&lt;/FridayChecked&gt;&lt;SaturdayChecked&gt;false&lt;/SaturdayChecked&gt;&lt;HourFrom&gt;14&lt;/HourFrom&gt;&lt;MinuteFrom&gt;0&lt;/MinuteFrom&gt;&lt;HourTo&gt;16&lt;/HourTo&gt;&lt;MinuteTo&gt;59&lt;/MinuteTo&gt;&lt;/DateTimeCondition&gt;&lt;/ArrayOfDateTimeCondition&gt;" x:Name="promotions">
+            <ns0:TransferComponent Destination="callflow$.PromotionsQueue" DebugModeActive="False" x:Name="transferPromotions" />
+          </ns0:DateTimeConditionalComponentBranch>
+          <ns0:DateTimeConditionalComponentBranch DIDFilter="AllDIDs" Description="Execution path when the specified date and time condition is met." DebugModeActive="False" DIDFilterList="" DateTimeConditionList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfDateTimeCondition xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;DateTimeCondition xsi:type=&quot;ServerOfficeHoursDateTimeCondition&quot; /&gt;&lt;/ArrayOfDateTimeCondition&gt;" x:Name="standard">
+            <ns0:TransferComponent Destination="callflow$.StandardQueue" DebugModeActive="False" x:Name="transferStandard" />
+          </ns0:DateTimeConditionalComponentBranch>
+        </ns0:DateTimeConditionalComponent>
+      </ns0:MainFlow>
+    </MainFlow>
+    <ErrorHandlerFlow>
+      <ns0:ErrorHandlerFlow Description="Execution path when an error ocurrs." DebugModeActive="False" x:Name="Main" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=16.0.50.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e" />
+    </ErrorHandlerFlow>
+    <DisconnectHandlerFlow>
+      <ns0:DisconnectHandlerFlow Description="Execution path since the call gets disconnected." DebugModeActive="False" x:Name="Main" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=16.0.50.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e" />
+    </DisconnectHandlerFlow>
+  </Flows>
+</File>
