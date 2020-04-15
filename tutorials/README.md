@@ -3,7 +3,7 @@ The 3CX Call Flow Designer (CFD) is a powerful tool that allows you to automate 
 
 We’ve prepared a series of 5 videos to show you just how easy the CFD really is. Check them out and let us know your thoughts and feedback!
 
-## Additional resources
+## Tutorials 
 * [Creating your First Call Flow and Deploying it to 3CX](https://www.youtube.com/watch?v=wBRFPCBQjLE&list=PL6sq0_ucoDunJmxkcSSACrg-dPRbPmHYE&index=2&t=0s)
 * [Modifying Existing Call Flows – Out of office hours and emailing messages](https://www.youtube.com/watch?v=snToJw3pIbA&list=PL6sq0_ucoDunJmxkcSSACrg-dPRbPmHYE&index=2)
 * [Expanding an Existing Project to use Components](https://www.youtube.com/watch?v=6RlA97XrvlY&list=PL6sq0_ucoDunJmxkcSSACrg-dPRbPmHYE&index=3)
