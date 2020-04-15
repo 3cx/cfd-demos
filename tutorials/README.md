@@ -9,3 +9,5 @@ We’ve prepared a series of 5 videos to show you just how easy the CFD really i
 * [Expanding an Existing Project to use Components](https://www.youtube.com/watch?v=6RlA97XrvlY&list=PL6sq0_ucoDunJmxkcSSACrg-dPRbPmHYE&index=3)
 * [Adding more Intelligence to your Call Flow – authenticating IDs against a database](https://www.youtube.com/watch?v=pxmQb2Pp9j0&list=PL6sq0_ucoDunJmxkcSSACrg-dPRbPmHYE&index=4)
 * [Verifying users’ input by refining the validation and digit playback](https://www.youtube.com/watch?v=3O3E2PRhCTQ&feature=youtu.be)
+
+> Head on over to the [CFD documentation pages](https://www.3cx.com/docs/manual/call-flow-designer-manual/) to see what else this powerful tool has to offer.
