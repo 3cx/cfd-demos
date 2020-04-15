@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<File>
+  <Version>2.0</Version>
+  <Variables>
+    <ArrayOfVariable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+  </Variables>
+  <Flows>
+    <MainFlow>
+      <ns0:MainFlow Description="Callflow execution path." DebugModeActive="False" x:Name="Sales_Option" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=16.2.95.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e">
+        <ns0:DateTimeConditionalComponent DebugModeActive="False" x:Name="SalesOfficeHours">
+          <ns0:DateTimeConditionalComponentBranch DIDFilter="AllDIDs" Description="Execution path when the specified date and time condition is met." DebugModeActive="False" DIDFilterList="" DateTimeConditionList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfDateTimeCondition xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;DateTimeCondition xsi:type=&quot;DayOfWeekDateTimeCondition&quot;&gt;&lt;SundayChecked&gt;false&lt;/SundayChecked&gt;&lt;MondayChecked&gt;true&lt;/MondayChecked&gt;&lt;TuesdayChecked&gt;true&lt;/TuesdayChecked&gt;&lt;WednesdayChecked&gt;true&lt;/WednesdayChecked&gt;&lt;ThursdayChecked&gt;true&lt;/ThursdayChecked&gt;&lt;FridayChecked&gt;false&lt;/FridayChecked&gt;&lt;SaturdayChecked&gt;false&lt;/SaturdayChecked&gt;&lt;HourFrom&gt;9&lt;/HourFrom&gt;&lt;MinuteFrom&gt;0&lt;/MinuteFrom&gt;&lt;HourTo&gt;17&lt;/HourTo&gt;&lt;MinuteTo&gt;0&lt;/MinuteTo&gt;&lt;/DateTimeCondition&gt;&lt;/ArrayOfDateTimeCondition&gt;" x:Name="InOfficeHours">
+            <ns0:PromptPlaybackComponent DebugModeActive="False" AllowDtmfInput="True" PromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;AudioFilePrompt&quot;&gt;&lt;AudioFileName&gt;CFDtransfersales.wav&lt;/AudioFileName&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" x:Name="TransferSales" />
+            <ns0:TransferComponent TransferToVoicemail="False" DebugModeActive="False" Destination="808" x:Name="TransferToSales" />
+          </ns0:DateTimeConditionalComponentBranch>
+          <ns0:DateTimeConditionalComponentBranch DIDFilter="AllDIDs" Description="Execution path when the specified date and time condition is met." DebugModeActive="False" DIDFilterList="" DateTimeConditionList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfDateTimeCondition xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;DateTimeCondition xsi:type=&quot;DayOfWeekDateTimeCondition&quot;&gt;&lt;SundayChecked&gt;true&lt;/SundayChecked&gt;&lt;MondayChecked&gt;false&lt;/MondayChecked&gt;&lt;TuesdayChecked&gt;false&lt;/TuesdayChecked&gt;&lt;WednesdayChecked&gt;false&lt;/WednesdayChecked&gt;&lt;ThursdayChecked&gt;false&lt;/ThursdayChecked&gt;&lt;FridayChecked&gt;true&lt;/FridayChecked&gt;&lt;SaturdayChecked&gt;true&lt;/SaturdayChecked&gt;&lt;HourFrom&gt;0&lt;/HourFrom&gt;&lt;MinuteFrom&gt;0&lt;/MinuteFrom&gt;&lt;HourTo&gt;23&lt;/HourTo&gt;&lt;MinuteTo&gt;59&lt;/MinuteTo&gt;&lt;/DateTimeCondition&gt;&lt;/ArrayOfDateTimeCondition&gt;" x:Name="OutOfOfficeHours">
+            <ns0:RecordAndEmailComponent Port="25" TerminateByDtmf="True" UserName="" Subject="&quot;After Hours Voice Message - Sales Queue&quot;" x:Name="RecordAndEmail" MaxTime="60" Priority="Normal" UseServerSettings="True" EnableSSL="false" Body="&quot;A voice message has been left by a caller after hours. Please action on this ASAP&quot;" Beep="True" IsBodyHtml="False" CC="" Password="" BCC="" Server="" DebugModeActive="False" PromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;TextToSpeechAudioPrompt&quot;&gt;&lt;VoiceName&gt;Joanna&lt;/VoiceName&gt;&lt;Format&gt;Text&lt;/Format&gt;&lt;Text&gt;&quot;Our Sales Team is currently offline. Please leave a message after the tone, and then press any button&quot;&lt;/Text&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" To="&quot;3cxtrainer@gmail.com&quot;" From="" />
+            <ns0:PromptPlaybackComponent DebugModeActive="False" AllowDtmfInput="True" PromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;TextToSpeechAudioPrompt&quot;&gt;&lt;VoiceName&gt;Joanna&lt;/VoiceName&gt;&lt;Format&gt;Text&lt;/Format&gt;&lt;Text&gt;&quot;Your message has been received. Thank you&quot;&lt;/Text&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" x:Name="MessageVerification" />
+            <ns0:DisconnectCallComponent x:Name="DisconnectCall" DebugModeActive="False" />
+          </ns0:DateTimeConditionalComponentBranch>
+        </ns0:DateTimeConditionalComponent>
+      </ns0:MainFlow>
+    </MainFlow>
+    <ErrorHandlerFlow>
+      <ns0:ErrorHandlerFlow Description="Execution path when an error ocurrs." DebugModeActive="False" x:Name="Sales_Option" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=16.2.95.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e" />
+    </ErrorHandlerFlow>
+    <DisconnectHandlerFlow>
+      <ns0:DisconnectHandlerFlow Description="Execution path since the call gets disconnected." DebugModeActive="False" x:Name="Sales_Option" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=16.2.95.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e" />
+    </DisconnectHandlerFlow>
+  </Flows>
+</File>
