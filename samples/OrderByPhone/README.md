@@ -1,6 +1,6 @@
 # Creating Order by Phone service
 ## Summary 
-Combine [CFD components](https://www.3cx.com/docs/manual/cfd-components/) to enable easy implementation of a telephone ordering system that can be integrated with a [3CX API](https://www.3cx.com/docs/crm-integration/) compatible [CRM](https://www.3cx.com/crm-integration/), a [database server](https://www.3cx.com/docs/manual/cfd-components/#h.44lwg0nrv5st) and [Text to Speech](https://www.3cx.com/docs/cfd-text-to-speech-audio-prompt/).. 
+Combine [CFD components](https://www.3cx.com/docs/manual/cfd-components/) to enable easy implementation of a telephone ordering system that can be integrated with a [3CX API](https://www.3cx.com/docs/crm-integration/) compatible [CRM](https://www.3cx.com/crm-integration/), a [database server](https://www.3cx.com/docs/manual/cfd-components/#h.44lwg0nrv5st) and [Text to Speech](https://www.3cx.com/docs/cfd-text-to-speech-audio-prompt/).
 
 [Read more](https://www.3cx.com/docs/manual/cfd-phone-order-system/)
 
