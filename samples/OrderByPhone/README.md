@@ -4,7 +4,7 @@ Combine [CFD components](https://www.3cx.com/docs/manual/cfd-components/) to ena
 
 [Read more](https://www.3cx.com/docs/manual/cfd-phone-order-system/)
 
-## Video Walthrough
+## Video Walkthrough
 [![Creating Order by Phone service](http://img.youtube.com/vi/sWmIJ_pxdYo/0.jpg)](https://www.youtube.com/watch?v=sWmIJ_pxdYo)
 
 ## Additional resources
