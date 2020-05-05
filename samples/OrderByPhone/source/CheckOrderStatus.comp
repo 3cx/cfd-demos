@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<File>
+  <Version>2.1</Version>
+  <Variables>
+    <ArrayOfVariable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <Variable>
+        <Name>TryNumber</Name>
+        <InitialValue>0</InitialValue>
+        <Scope>Private</Scope>
+        <ShowScopeProperty>true</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+    </ArrayOfVariable>
+  </Variables>
+  <Flows>
+    <MainFlow>
+      <ns0:MainFlow Description="Callflow execution path." DebugModeActive="False" x:Name="CheckOrderStatus" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=16.0.0.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e">
+        <ns0:LoopComponent Condition="LESS_THAN(callflow$.TryNumber,3)" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="AskReferenceNumberLoop">
+          <ns0:UserInputComponent AcceptDtmfInput="True" FinalDigitTimeout="2" StopDigit="DigitPound" IsValidDigit_3="True" IsValidDigit_0="True" IsValidDigit_1="True" IsValidDigit_Pound="False" InvalidDigitPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;TextToSpeechAudioPrompt&quot;&gt;&lt;VoiceName&gt;Amy&lt;/VoiceName&gt;&lt;VoiceType&gt;Standard&lt;/VoiceType&gt;&lt;Format&gt;Text&lt;/Format&gt;&lt;Text&gt;&quot;Your input is not valid.&quot;&lt;/Text&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" IsValidDigit_7="True" IsValidDigit_4="True" IsValidDigit_5="True" SubsequentPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;TextToSpeechAudioPrompt&quot;&gt;&lt;VoiceName&gt;Amy&lt;/VoiceName&gt;&lt;VoiceType&gt;Standard&lt;/VoiceType&gt;&lt;Format&gt;Text&lt;/Format&gt;&lt;Text&gt;&quot;Please enter your 6-digit order reference number to retrieve the order status.&quot;&lt;/Text&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" IsValidDigit_2="True" InterDigitTimeout="3" IsValidDigit_6="True" MinDigits="6" InitialPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;TextToSpeechAudioPrompt&quot;&gt;&lt;VoiceName&gt;Amy&lt;/VoiceName&gt;&lt;VoiceType&gt;Standard&lt;/VoiceType&gt;&lt;Format&gt;Text&lt;/Format&gt;&lt;Text&gt;&quot;Please enter your 6-digit order reference number to retrieve the order status.&quot;&lt;/Text&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" x:Name="AskReferenceNumber" MaxRetryCount="3" DebugModeActive="False" FirstDigitTimeout="5" MaxDigits="6" IsValidDigit_8="True" IsValidDigit_9="True" IsValidDigit_Star="False" TimeoutPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;TextToSpeechAudioPrompt&quot;&gt;&lt;VoiceName&gt;Amy&lt;/VoiceName&gt;&lt;VoiceType&gt;Standard&lt;/VoiceType&gt;&lt;Format&gt;Text&lt;/Format&gt;&lt;Text&gt;&quot;We didn't receive any digit.&quot;&lt;/Text&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;">
+            <ns0:ComponentBranch DisplayedText="Valid Input" Description="Execution path when the specified branch is activated." DebugModeActive="False" x:Name="componentBranch1">
+              <ns0:DatabaseAccessComponent Port="project$.DatabasePort" Timeout="30" UserName="project$.DatabaseUsername" x:Name="GetOrderStatus" Password="project$.DatabasePassword" UseConnectionString="False" StatementType="Scalar" ParameterList="" Database="project$.DatabaseName" DatabaseType="MySQL" SqlStatement="CONCATENATE(&quot;SELECT status FROM orders WHERE id =&quot;,AskReferenceNumber.Buffer)" ConnectionString="" Server="project$.DatabaseServer" DebugModeActive="False" />
+              <ns0:ConditionalComponent DebugModeActive="False" x:Name="CheckValidOrder">
+                <ns0:ConditionalComponentBranch Condition="GREAT_THAN(LEN(GetOrderStatus.ScalarResult),0)" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="ValidOrder">
+                  <ns0:PromptPlaybackComponent AcceptDtmfInput="True" DebugModeActive="False" PromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;TextToSpeechAudioPrompt&quot;&gt;&lt;VoiceName&gt;Amy&lt;/VoiceName&gt;&lt;VoiceType&gt;Standard&lt;/VoiceType&gt;&lt;Format&gt;Text&lt;/Format&gt;&lt;Text&gt;CONCATENATE(&quot;The status of your order is: &quot;,GetOrderStatus.ScalarResult,&quot;. Thanks for contacting Super Easy Teleshopping! Have a nice day!&quot;)&lt;/Text&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" x:Name="PlayOrderStatus" />
+                  <ns0:DisconnectCallComponent x:Name="DropCall" DebugModeActive="False" />
+                </ns0:ConditionalComponentBranch>
+                <ns0:ConditionalComponentBranch Condition="" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="InvalidOrder">
+                  <ns0:PromptPlaybackComponent AcceptDtmfInput="True" DebugModeActive="False" PromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;TextToSpeechAudioPrompt&quot;&gt;&lt;VoiceName&gt;Amy&lt;/VoiceName&gt;&lt;VoiceType&gt;Standard&lt;/VoiceType&gt;&lt;Format&gt;Text&lt;/Format&gt;&lt;Text&gt;&quot;We couldn't find this order number. Please re-enter.&quot;&lt;/Text&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" x:Name="PlayInvalidOrder" />
+                  <ns0:IncrementVariableComponent DebugModeActive="False" VariableName="callflow$.TryNumber" x:Name="IncrementTryNumber" />
+                </ns0:ConditionalComponentBranch>
+              </ns0:ConditionalComponent>
+            </ns0:ComponentBranch>
+            <ns0:ComponentBranch DisplayedText="Invalid Input" Description="Execution path when the specified branch is activated." DebugModeActive="False" x:Name="componentBranch2">
+              <ns0:PromptPlaybackComponent AcceptDtmfInput="True" DebugModeActive="False" PromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;TextToSpeechAudioPrompt&quot;&gt;&lt;VoiceName&gt;Amy&lt;/VoiceName&gt;&lt;VoiceType&gt;Standard&lt;/VoiceType&gt;&lt;Format&gt;Text&lt;/Format&gt;&lt;Text&gt;&quot;Sorry, we couldn't get your order reference number. We're transfering you to an operator.&quot;&lt;/Text&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" x:Name="PlayNoOrderReference" />
+              <ns0:TransferComponent TransferToVoicemail="False" Destination="project$.OperatorExtension" DebugModeActive="False" DelayMilliseconds="0" x:Name="TransferToOperator" />
+            </ns0:ComponentBranch>
+          </ns0:UserInputComponent>
+        </ns0:LoopComponent>
+        <ns0:PromptPlaybackComponent AcceptDtmfInput="True" DebugModeActive="False" PromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;TextToSpeechAudioPrompt&quot;&gt;&lt;VoiceName&gt;Amy&lt;/VoiceName&gt;&lt;VoiceType&gt;Standard&lt;/VoiceType&gt;&lt;Format&gt;Text&lt;/Format&gt;&lt;Text&gt;&quot;We're transfering you to an operator.&quot;&lt;/Text&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" x:Name="PlayTransferToOperator" />
+        <ns0:TransferComponent TransferToVoicemail="False" Destination="project$.OperatorExtension" DebugModeActive="False" DelayMilliseconds="0" x:Name="TransferToOperatorOnInvalidOrder" />
+      </ns0:MainFlow>
+    </MainFlow>
+    <ErrorHandlerFlow>
+      <ns0:ErrorHandlerFlow Description="Execution path when an error ocurrs." DebugModeActive="False" x:Name="CheckOrderStatus" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=16.0.0.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e" />
+    </ErrorHandlerFlow>
+    <DisconnectHandlerFlow>
+      <ns0:DisconnectHandlerFlow Description="Execution path since the call gets disconnected." DebugModeActive="False" x:Name="CheckOrderStatus" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=16.0.0.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e" />
+    </DisconnectHandlerFlow>
+  </Flows>
+</File>

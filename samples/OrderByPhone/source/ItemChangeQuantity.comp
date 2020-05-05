@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<File>
+  <Version>2.1</Version>
+  <Variables>
+    <ArrayOfVariable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <Variable>
+        <Name>MaxQuantity</Name>
+        <ShowScopeProperty>true</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+      <Variable>
+        <Name>SelectedQuantity</Name>
+        <InitialValue>1</InitialValue>
+        <ShowScopeProperty>true</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+      <Variable>
+        <Name>HasToAskQuantity</Name>
+        <InitialValue>true</InitialValue>
+        <Scope>Private</Scope>
+        <ShowScopeProperty>true</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+    </ArrayOfVariable>
+  </Variables>
+  <Flows>
+    <MainFlow>
+      <ns0:MainFlow Description="Callflow execution path." DebugModeActive="False" x:Name="Component1" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=16.0.0.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e">
+        <ns0:LoopComponent Condition="callflow$.HasToAskQuantity" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="AskQuantityLoop">
+          <ns0:UserInputComponent AcceptDtmfInput="True" FinalDigitTimeout="2" StopDigit="DigitPound" IsValidDigit_3="True" IsValidDigit_0="True" IsValidDigit_1="True" IsValidDigit_Pound="False" InvalidDigitPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;TextToSpeechAudioPrompt&quot;&gt;&lt;VoiceName&gt;Amy&lt;/VoiceName&gt;&lt;VoiceType&gt;Standard&lt;/VoiceType&gt;&lt;Format&gt;Text&lt;/Format&gt;&lt;Text&gt;&quot;Your input is invalid.&quot;&lt;/Text&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" IsValidDigit_7="True" IsValidDigit_4="True" IsValidDigit_5="True" SubsequentPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;TextToSpeechAudioPrompt&quot;&gt;&lt;VoiceName&gt;Amy&lt;/VoiceName&gt;&lt;VoiceType&gt;Standard&lt;/VoiceType&gt;&lt;Format&gt;Text&lt;/Format&gt;&lt;Text&gt;CONCATENATE(&quot;Enter up to &quot;,callflow$.MaxQuantity,&quot; items to order or 0 to cancel ordering this item.&quot;)&lt;/Text&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" IsValidDigit_2="True" InterDigitTimeout="3" IsValidDigit_6="True" MinDigits="1" InitialPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;TextToSpeechAudioPrompt&quot;&gt;&lt;VoiceName&gt;Amy&lt;/VoiceName&gt;&lt;VoiceType&gt;Standard&lt;/VoiceType&gt;&lt;Format&gt;Text&lt;/Format&gt;&lt;Text&gt;CONCATENATE(&quot;Enter up to &quot;,callflow$.MaxQuantity,&quot; items to order or 0 to cancel ordering this item.&quot;)&lt;/Text&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" x:Name="AskQuantity" MaxRetryCount="3" DebugModeActive="False" FirstDigitTimeout="5" MaxDigits="3" IsValidDigit_8="True" IsValidDigit_9="True" IsValidDigit_Star="False" TimeoutPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;TextToSpeechAudioPrompt&quot;&gt;&lt;VoiceName&gt;Amy&lt;/VoiceName&gt;&lt;VoiceType&gt;Standard&lt;/VoiceType&gt;&lt;Format&gt;Text&lt;/Format&gt;&lt;Text&gt;&quot;We didn't receive any digit.&quot;&lt;/Text&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;">
+            <ns0:ComponentBranch DisplayedText="Valid Input" Description="Execution path when the specified branch is activated." DebugModeActive="False" x:Name="componentBranch1">
+              <ns0:VariableAssignmentComponent VariableName="callflow$.SelectedQuantity" DebugModeActive="False" Expression="TO_INTEGER(AskQuantity.Buffer)" x:Name="SetQuantity" />
+              <ns0:ConditionalComponent DebugModeActive="False" x:Name="CheckStock">
+                <ns0:ConditionalComponentBranch Condition="LESS_THAN_OR_EQUAL(callflow$.SelectedQuantity,callflow$.MaxQuantity)" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="EnoughStock">
+                  <ns0:VariableAssignmentComponent VariableName="callflow$.HasToAskQuantity" DebugModeActive="False" Expression="false" x:Name="ExitLoop" />
+                </ns0:ConditionalComponentBranch>
+                <ns0:ConditionalComponentBranch Condition="" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="NotEnoughStock">
+                  <ns0:PromptPlaybackComponent AcceptDtmfInput="True" DebugModeActive="False" PromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;TextToSpeechAudioPrompt&quot;&gt;&lt;VoiceName&gt;Amy&lt;/VoiceName&gt;&lt;VoiceType&gt;Standard&lt;/VoiceType&gt;&lt;Format&gt;Text&lt;/Format&gt;&lt;Text&gt;CONCATENATE(&quot;Only &quot;,callflow$.MaxQuantity,&quot; items in stock. Please enter a lower quantity or 0 to cancel.&quot;)&lt;/Text&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" x:Name="PlayNotEnoughStock" />
+                </ns0:ConditionalComponentBranch>
+              </ns0:ConditionalComponent>
+            </ns0:ComponentBranch>
+            <ns0:ComponentBranch DisplayedText="Invalid Input" Description="Execution path when the specified branch is activated." DebugModeActive="False" x:Name="componentBranch2">
+              <ns0:VariableAssignmentComponent VariableName="callflow$.SelectedQuantity" DebugModeActive="False" Expression="0" x:Name="SetZero" />
+            </ns0:ComponentBranch>
+          </ns0:UserInputComponent>
+        </ns0:LoopComponent>
+      </ns0:MainFlow>
+    </MainFlow>
+    <ErrorHandlerFlow>
+      <ns0:ErrorHandlerFlow Description="Execution path when an error ocurrs." DebugModeActive="False" x:Name="Component1" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=16.0.0.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e" />
+    </ErrorHandlerFlow>
+    <DisconnectHandlerFlow>
+      <ns0:DisconnectHandlerFlow Description="Execution path since the call gets disconnected." DebugModeActive="False" x:Name="Component1" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=16.0.0.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e" />
+    </DisconnectHandlerFlow>
+  </Flows>
+</File>

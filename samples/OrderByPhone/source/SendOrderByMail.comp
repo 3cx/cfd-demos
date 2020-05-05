@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<File>
+  <Version>2.1</Version>
+  <Variables>
+    <ArrayOfVariable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <Variable>
+        <Name>OrderID</Name>
+        <ShowScopeProperty>true</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+      <Variable>
+        <Name>ContactID</Name>
+        <ShowScopeProperty>true</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+      <Variable>
+        <Name>ContactName</Name>
+        <ShowScopeProperty>true</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+      <Variable>
+        <Name>ContactEmail</Name>
+        <ShowScopeProperty>true</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+      <Variable>
+        <Name>TotalAmount</Name>
+        <ShowScopeProperty>true</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+      <Variable>
+        <Name>ItemCount</Name>
+        <ShowScopeProperty>true</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+      <Variable>
+        <Name>ItemIndex</Name>
+        <InitialValue>0</InitialValue>
+        <Scope>Private</Scope>
+        <ShowScopeProperty>true</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+      <Variable>
+        <Name>MailBody</Name>
+        <InitialValue>""</InitialValue>
+        <Scope>Private</Scope>
+        <ShowScopeProperty>true</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+      <Variable>
+        <Name>DataID</Name>
+        <Scope>Private</Scope>
+        <ShowScopeProperty>true</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+      <Variable>
+        <Name>DataDescription</Name>
+        <Scope>Private</Scope>
+        <ShowScopeProperty>true</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+      <Variable>
+        <Name>DataQuantity</Name>
+        <Scope>Private</Scope>
+        <ShowScopeProperty>true</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+      <Variable>
+        <Name>DataPrice</Name>
+        <Scope>Private</Scope>
+        <ShowScopeProperty>true</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+    </ArrayOfVariable>
+  </Variables>
+  <Flows>
+    <MainFlow>
+      <ns0:MainFlow Description="Callflow execution path." DebugModeActive="False" x:Name="Component1" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=16.0.0.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e">
+        <ns0:VariableAssignmentComponent VariableName="callflow$.MailBody" DebugModeActive="False" Expression="CONCATENATE(&quot;&lt;p&gt;&lt;b&gt;Customer Number:&lt;/b&gt; &quot;,callflow$.ContactID,&quot;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Customer Name:&lt;/b&gt; &quot;,callflow$.ContactName,&quot;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Order details&lt;/b&gt;&lt;/p&gt;&lt;br/&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;Item ID&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Description&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Quantity&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Unit Price&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Total&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&quot;)" x:Name="SetMailBody" />
+        <ns0:LoopComponent Condition="LESS_THAN(callflow$.ItemIndex,callflow$.ItemCount)" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="ItemsLoop">
+          <ns0:DatabaseAccessComponent Port="project$.DatabasePort" Timeout="30" UserName="project$.DatabaseUsername" x:Name="GetOrderItem" Password="project$.DatabasePassword" UseConnectionString="False" StatementType="Query" ParameterList="" Database="project$.DatabaseName" DatabaseType="MySQL" SqlStatement="CONCATENATE(&quot;SELECT A.itemid, B.name, A.quantity, B.price FROM orderdetails as A, items as B WHERE A.itemid = B.id AND A.orderid = &quot;,callflow$.OrderID,&quot; AND A.index = &quot;,callflow$.ItemIndex)" ConnectionString="" Server="project$.DatabaseServer" DebugModeActive="False" />
+          <ns0:VariableAssignmentComponent VariableName="callflow$.DataID" DebugModeActive="False" Expression="GET_TABLE_CELL_VALUE(GetOrderItem.QueryResult,0,0)" x:Name="SetItemID" />
+          <ns0:VariableAssignmentComponent VariableName="callflow$.DataDescription" DebugModeActive="False" Expression="GET_TABLE_CELL_VALUE(GetOrderItem.QueryResult,0,1)" x:Name="SetItemDescription" />
+          <ns0:VariableAssignmentComponent VariableName="callflow$.DataQuantity" DebugModeActive="False" Expression="GET_TABLE_CELL_VALUE(GetOrderItem.QueryResult,0,2)" x:Name="SetItemQuantity" />
+          <ns0:VariableAssignmentComponent VariableName="callflow$.DataPrice" DebugModeActive="False" Expression="GET_TABLE_CELL_VALUE(GetOrderItem.QueryResult,0,3)" x:Name="SetItemPrice" />
+          <ns0:ExecuteCSharpCodeComponent ReturnsValue="True" Code="return quantity * unitPrice;" ParameterList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfScriptParameter xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;ScriptParameter&gt;&lt;Name&gt;quantity&lt;/Name&gt;&lt;Value&gt;callflow$.DataQuantity&lt;/Value&gt;&lt;Type&gt;Int32&lt;/Type&gt;&lt;/ScriptParameter&gt;&lt;ScriptParameter&gt;&lt;Name&gt;unitPrice&lt;/Name&gt;&lt;Value&gt;callflow$.DataPrice&lt;/Value&gt;&lt;Type&gt;Decimal&lt;/Type&gt;&lt;/ScriptParameter&gt;&lt;/ArrayOfScriptParameter&gt;" MethodName="CalculateItemTotal" DebugModeActive="False" x:Name="CalculateItemTotal" />
+          <ns0:VariableAssignmentComponent VariableName="callflow$.MailBody" DebugModeActive="False" Expression="CONCATENATE(callflow$.MailBody,&quot;&lt;tr&gt;&lt;td&gt;&quot;,callflow$.DataID,&quot;&lt;/td&gt;&lt;td&gt;&quot;,callflow$.DataDescription,&quot;&lt;/td&gt;&lt;td&gt;&quot;,callflow$.DataQuantity,&quot;&lt;/td&gt;&lt;td&gt;$&quot;,callflow$.DataPrice,&quot;&lt;/td&gt;&lt;td&gt;$&quot;,CalculateItemTotal.ReturnValue,&quot;&lt;/td&gt;&lt;/tr&gt;&quot;)" x:Name="AddTableRowToMailBody" />
+          <ns0:IncrementVariableComponent DebugModeActive="False" VariableName="callflow$.ItemIndex" x:Name="IncrementIndex" />
+        </ns0:LoopComponent>
+        <ns0:VariableAssignmentComponent VariableName="callflow$.MailBody" DebugModeActive="False" Expression="CONCATENATE(callflow$.MailBody,&quot;&lt;tr&gt;&lt;td colspan=\&quot;4\&quot;&gt;TOTAL&lt;/td&gt;&lt;td&gt;$&quot;,callflow$.TotalAmount,&quot;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;You can check the status of your order by calling back, use option 2, and dial the order reference number.&lt;/p&gt;&quot;)" x:Name="CloseMailBody" />
+        <ns0:EMailSenderComponent Port="25" UserName="" Subject="CONCATENATE(&quot;Summary for your Order Ref. #&quot;,callflow$.OrderID)" x:Name="SendMail" Priority="Normal" Password="" EnableSSL="false" From="" IsBodyHtml="True" UseServerSettings="True" AttachmentList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfMailAttachment xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; /&gt;" IgnoreMissingAttachments="False" CC="" BCC="" Server="&quot;smtp.example.com&quot;" DebugModeActive="False" To="callflow$.ContactEmail" Body="callflow$.MailBody" />
+        <ns0:PromptPlaybackComponent AcceptDtmfInput="True" DebugModeActive="False" PromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;TextToSpeechAudioPrompt&quot;&gt;&lt;VoiceName&gt;Amy&lt;/VoiceName&gt;&lt;VoiceType&gt;Standard&lt;/VoiceType&gt;&lt;Format&gt;Text&lt;/Format&gt;&lt;Text&gt;&quot;Order sent. Thank you for ordering and have a nice day!&quot;&lt;/Text&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" x:Name="MessageSent" />
+      </ns0:MainFlow>
+    </MainFlow>
+    <ErrorHandlerFlow>
+      <ns0:ErrorHandlerFlow Description="Execution path when an error ocurrs." DebugModeActive="False" x:Name="Component1" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=16.0.0.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e" />
+    </ErrorHandlerFlow>
+    <DisconnectHandlerFlow>
+      <ns0:DisconnectHandlerFlow Description="Execution path since the call gets disconnected." DebugModeActive="False" x:Name="Component1" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=16.0.0.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e" />
+    </DisconnectHandlerFlow>
+  </Flows>
+</File>

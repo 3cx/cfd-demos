@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<File>
+  <Version>2.1</Version>
+  <Variables>
+    <ArrayOfVariable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <Variable>
+        <Name>ContactFound</Name>
+        <InitialValue>false</InitialValue>
+        <ShowScopeProperty>true</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+      <Variable>
+        <Name>ContactID</Name>
+        <InitialValue>""</InitialValue>
+        <ShowScopeProperty>true</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+      <Variable>
+        <Name>ContactName</Name>
+        <InitialValue>""</InitialValue>
+        <ShowScopeProperty>true</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+      <Variable>
+        <Name>ContactEmail</Name>
+        <InitialValue>""</InitialValue>
+        <ShowScopeProperty>true</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+      <Variable>
+        <Name>FirstName</Name>
+        <Scope>Private</Scope>
+        <ShowScopeProperty>true</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+      <Variable>
+        <Name>LastName</Name>
+        <Scope>Private</Scope>
+        <ShowScopeProperty>true</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+    </ArrayOfVariable>
+  </Variables>
+  <Flows>
+    <MainFlow>
+      <ns0:MainFlow Description="Callflow execution path." DebugModeActive="False" x:Name="ContactLookup" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=16.0.0.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e">
+        <ns0:CRMLookupComponent ResponseMappingsList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfResponseMapping xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;ResponseMapping&gt;&lt;Path&gt;Id&lt;/Path&gt;&lt;Variable&gt;callflow$.ContactID&lt;/Variable&gt;&lt;/ResponseMapping&gt;&lt;ResponseMapping&gt;&lt;Path&gt;FirstName&lt;/Path&gt;&lt;Variable&gt;callflow$.FirstName&lt;/Variable&gt;&lt;/ResponseMapping&gt;&lt;ResponseMapping&gt;&lt;Path&gt;LastName&lt;/Path&gt;&lt;Variable&gt;callflow$.LastName&lt;/Variable&gt;&lt;/ResponseMapping&gt;&lt;ResponseMapping&gt;&lt;Path&gt;Email&lt;/Path&gt;&lt;Variable&gt;callflow$.ContactEmail&lt;/Variable&gt;&lt;/ResponseMapping&gt;&lt;/ArrayOfResponseMapping&gt;" x:Name="SearchContacts" Entity="Contacts" DebugModeActive="False" LookupInputParameter="session.ani" LookupBy="EntityNumber" />
+        <ns0:ConditionalComponent DebugModeActive="False" x:Name="CheckContactFound">
+          <ns0:ConditionalComponentBranch Condition="GREAT_THAN(LEN(callflow$.ContactID),0)" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="ContactFound">
+            <ns0:VariableAssignmentComponent VariableName="callflow$.ContactName" DebugModeActive="False" Expression="CONCATENATE(callflow$.FirstName,&quot; &quot;,callflow$.LastName)" x:Name="SetContactName" />
+            <ns0:VariableAssignmentComponent VariableName="callflow$.ContactFound" DebugModeActive="False" Expression="true" x:Name="SetContactFound" />
+          </ns0:ConditionalComponentBranch>
+          <ns0:ConditionalComponentBranch Condition="" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="ContactNotFound">
+            <ns0:VariableAssignmentComponent VariableName="callflow$.ContactFound" DebugModeActive="False" Expression="false" x:Name="SetAccountNotFound" />
+          </ns0:ConditionalComponentBranch>
+        </ns0:ConditionalComponent>
+      </ns0:MainFlow>
+    </MainFlow>
+    <ErrorHandlerFlow>
+      <ns0:ErrorHandlerFlow Description="Execution path when an error ocurrs." DebugModeActive="False" x:Name="ContactLookup" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=16.0.0.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e" />
+    </ErrorHandlerFlow>
+    <DisconnectHandlerFlow>
+      <ns0:DisconnectHandlerFlow Description="Execution path since the call gets disconnected." DebugModeActive="False" x:Name="ContactLookup" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=16.0.0.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e" />
+    </DisconnectHandlerFlow>
+  </Flows>
+</File>

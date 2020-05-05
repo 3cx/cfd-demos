@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<File>
+  <Version>2.1</Version>
+  <Variables>
+    <ArrayOfVariable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <Variable>
+        <Name>ContactID</Name>
+        <ShowScopeProperty>true</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+      <Variable>
+        <Name>ContactName</Name>
+        <ShowScopeProperty>true</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+      <Variable>
+        <Name>ContactEmail</Name>
+        <ShowScopeProperty>true</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+      <Variable>
+        <Name>ContinueOrdering</Name>
+        <InitialValue>true</InitialValue>
+        <Scope>Private</Scope>
+        <ShowScopeProperty>true</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+      <Variable>
+        <Name>OrderID</Name>
+        <Scope>Private</Scope>
+        <ShowScopeProperty>true</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+      <Variable>
+        <Name>ItemIndex</Name>
+        <InitialValue>0</InitialValue>
+        <Scope>Private</Scope>
+        <ShowScopeProperty>true</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+      <Variable>
+        <Name>TotalAmount</Name>
+        <InitialValue>0</InitialValue>
+        <Scope>Private</Scope>
+        <ShowScopeProperty>true</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+    </ArrayOfVariable>
+  </Variables>
+  <Flows>
+    <MainFlow>
+      <ns0:MainFlow Description="Callflow execution path." DebugModeActive="False" x:Name="Shopping" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=16.0.0.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e">
+        <ns0:PromptPlaybackComponent AcceptDtmfInput="True" DebugModeActive="False" PromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;TextToSpeechAudioPrompt&quot;&gt;&lt;VoiceName&gt;Amy&lt;/VoiceName&gt;&lt;VoiceType&gt;Standard&lt;/VoiceType&gt;&lt;Format&gt;Text&lt;/Format&gt;&lt;Text&gt;&quot;We're ready to take your order!&quot;&lt;/Text&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" x:Name="PlayReady" />
+        <ns0:DatabaseAccessComponent Port="project$.DatabasePort" Timeout="30" UserName="project$.DatabaseUsername" x:Name="CreateOrder" Password="project$.DatabasePassword" UseConnectionString="False" StatementType="Scalar" ParameterList="" Database="project$.DatabaseName" DatabaseType="MySQL" SqlStatement="CONCATENATE(&quot;INSERT INTO orders (customerid, status) VALUES ('&quot;,callflow$.ContactID,&quot;','Customer Ordering'); SELECT LAST_INSERT_ID();&quot;)" ConnectionString="" Server="project$.DatabaseServer" DebugModeActive="False" />
+        <ns0:VariableAssignmentComponent VariableName="callflow$.OrderID" DebugModeActive="False" Expression="CreateOrder.ScalarResult" x:Name="SetOrderID" />
+        <ns0:LoopComponent Condition="callflow$.ContinueOrdering" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="OrderingLoop">
+          <ns0:UserComponent PublicProperties="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfUserProperty xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;UserProperty&gt;&lt;Name&gt;ContactID&lt;/Name&gt;&lt;Value xsi:type=&quot;xsd:string&quot;&gt;callflow$.ContactID&lt;/Value&gt;&lt;/UserProperty&gt;&lt;UserProperty&gt;&lt;Name&gt;ItemID&lt;/Name&gt;&lt;Value xsi:type=&quot;xsd:string&quot;&gt;&lt;/Value&gt;&lt;/UserProperty&gt;&lt;UserProperty&gt;&lt;Name&gt;ItemPrice&lt;/Name&gt;&lt;Value xsi:type=&quot;xsd:string&quot;&gt;&lt;/Value&gt;&lt;/UserProperty&gt;&lt;UserProperty&gt;&lt;Name&gt;ItemQuantity&lt;/Name&gt;&lt;Value xsi:type=&quot;xsd:string&quot;&gt;&lt;/Value&gt;&lt;/UserProperty&gt;&lt;/ArrayOfUserProperty&gt;" DebugModeActive="False" RelativeFilePath="OrderSingleItem.comp" x:Name="OrderSingleItem" />
+          <ns0:ConditionalComponent DebugModeActive="False" x:Name="CheckItemSelected">
+            <ns0:ConditionalComponentBranch Condition="GREAT_THAN(OrderSingleItem.ItemQuantity,0)" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="ItemSelected">
+              <ns0:DatabaseAccessComponent Port="project$.DatabasePort" Timeout="30" UserName="project$.DatabaseUsername" x:Name="AddItemToOrder" Password="project$.DatabasePassword" UseConnectionString="False" StatementType="NonQuery" ParameterList="" Database="project$.DatabaseName" DatabaseType="MySQL" SqlStatement="CONCATENATE(&quot;INSERT INTO `orderdetails`(`orderid`, `index`, `itemid`, `quantity`) VALUES(&quot;,callflow$.OrderID,&quot;,&quot;,callflow$.ItemIndex,&quot;,&quot;,OrderSingleItem.ItemID,&quot;,&quot;,OrderSingleItem.ItemQuantity,&quot;)&quot;)" ConnectionString="" Server="project$.DatabaseServer" DebugModeActive="False" />
+              <ns0:IncrementVariableComponent DebugModeActive="False" VariableName="callflow$.ItemIndex" x:Name="IncrementItemIndex" />
+              <ns0:ExecuteCSharpCodeComponent ReturnsValue="True" Code="return itemPrice * quantity + totalAmount;" ParameterList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfScriptParameter xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;ScriptParameter&gt;&lt;Name&gt;itemPrice&lt;/Name&gt;&lt;Value&gt;OrderSingleItem.ItemPrice&lt;/Value&gt;&lt;Type&gt;Decimal&lt;/Type&gt;&lt;/ScriptParameter&gt;&lt;ScriptParameter&gt;&lt;Name&gt;quantity&lt;/Name&gt;&lt;Value&gt;OrderSingleItem.ItemQuantity&lt;/Value&gt;&lt;Type&gt;Int32&lt;/Type&gt;&lt;/ScriptParameter&gt;&lt;ScriptParameter&gt;&lt;Name&gt;totalAmount&lt;/Name&gt;&lt;Value&gt;callflow$.TotalAmount&lt;/Value&gt;&lt;Type&gt;Decimal&lt;/Type&gt;&lt;/ScriptParameter&gt;&lt;/ArrayOfScriptParameter&gt;" MethodName="AddToTotalAmount" DebugModeActive="False" x:Name="AddToTotalAmount" />
+              <ns0:VariableAssignmentComponent VariableName="callflow$.TotalAmount" DebugModeActive="False" Expression="AddToTotalAmount.ReturnValue" x:Name="SetTotalAmount" />
+            </ns0:ConditionalComponentBranch>
+          </ns0:ConditionalComponent>
+          <ns0:MenuComponent AcceptDtmfInput="True" IsValidOption_Star="False" Timeout="5" x:Name="PostItemMenu" SubsequentPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;TextToSpeechAudioPrompt&quot;&gt;&lt;VoiceName&gt;Amy&lt;/VoiceName&gt;&lt;VoiceType&gt;Standard&lt;/VoiceType&gt;&lt;Format&gt;Text&lt;/Format&gt;&lt;Text&gt;&quot;To add another item press 1, to complete your order press 2, or to cancel press 0.&quot;&lt;/Text&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" InvalidDigitPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;TextToSpeechAudioPrompt&quot;&gt;&lt;VoiceName&gt;Amy&lt;/VoiceName&gt;&lt;VoiceType&gt;Standard&lt;/VoiceType&gt;&lt;Format&gt;Text&lt;/Format&gt;&lt;Text&gt;&quot;The selected option is invalid.&quot;&lt;/Text&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" IsValidOption_8="False" IsValidOption_9="False" IsValidOption_Pound="False" InitialPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;TextToSpeechAudioPrompt&quot;&gt;&lt;VoiceName&gt;Amy&lt;/VoiceName&gt;&lt;VoiceType&gt;Standard&lt;/VoiceType&gt;&lt;Format&gt;Text&lt;/Format&gt;&lt;Text&gt;&quot;To add another item press 1, to complete your order press 2, or to cancel press 0.&quot;&lt;/Text&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" TimeoutPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;TextToSpeechAudioPrompt&quot;&gt;&lt;VoiceName&gt;Amy&lt;/VoiceName&gt;&lt;VoiceType&gt;Standard&lt;/VoiceType&gt;&lt;Format&gt;Text&lt;/Format&gt;&lt;Text&gt;&quot;We didn't receive any digit.&quot;&lt;/Text&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" IsValidOption_3="False" IsValidOption_0="True" IsValidOption_1="True" IsValidOption_6="False" IsValidOption_7="False" IsValidOption_4="False" IsValidOption_5="False" IsValidOption_2="True" DebugModeActive="False" MaxRetryCount="3">
+            <ns0:MenuComponentBranch Option="Option0" Description="Execution path when the specified option is selected by the user." FriendlyName="Cancel" DebugModeActive="False" x:Name="menuComponentBranch4">
+              <ns0:PromptPlaybackComponent AcceptDtmfInput="True" DebugModeActive="False" PromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;TextToSpeechAudioPrompt&quot;&gt;&lt;VoiceName&gt;Amy&lt;/VoiceName&gt;&lt;VoiceType&gt;Standard&lt;/VoiceType&gt;&lt;Format&gt;Text&lt;/Format&gt;&lt;Text&gt;&quot;Your order has been canceled. Have a nice day!&quot;&lt;/Text&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" x:Name="PlayOrderedCanceled" />
+              <ns0:DatabaseAccessComponent Port="project$.DatabasePort" Timeout="30" UserName="project$.DatabaseUsername" x:Name="SetOrderAsCanceled" Password="project$.DatabasePassword" UseConnectionString="False" StatementType="NonQuery" ParameterList="" Database="project$.DatabaseName" DatabaseType="MySQL" SqlStatement="CONCATENATE(&quot;UPDATE orders SET status = 'Order Canceled' WHERE id =&quot;,callflow$.OrderID)" ConnectionString="" Server="project$.DatabaseServer" DebugModeActive="False" />
+              <ns0:DisconnectCallComponent x:Name="DropCall" DebugModeActive="False" />
+            </ns0:MenuComponentBranch>
+            <ns0:MenuComponentBranch Option="Option1" Description="Execution path when the specified option is selected by the user." FriendlyName="Add other item" DebugModeActive="False" x:Name="menuComponentBranch1">
+              <ns0:VariableAssignmentComponent VariableName="callflow$.ContinueOrdering" DebugModeActive="False" Expression="true" x:Name="ContinueOrdering" />
+            </ns0:MenuComponentBranch>
+            <ns0:MenuComponentBranch Option="Option2" Description="Execution path when the specified option is selected by the user." FriendlyName="Complete order" DebugModeActive="False" x:Name="menuComponentBranch2">
+              <ns0:VariableAssignmentComponent VariableName="callflow$.ContinueOrdering" DebugModeActive="False" Expression="false" x:Name="StopOrdering" />
+              <ns0:ConditionalComponent DebugModeActive="False" x:Name="CheckOrderedItems">
+                <ns0:ConditionalComponentBranch Condition="GREAT_THAN(callflow$.ItemIndex,0)" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="WithItems">
+                  <ns0:DatabaseAccessComponent Port="project$.DatabasePort" Timeout="30" UserName="project$.DatabaseUsername" x:Name="SetOrderAsReady" Password="project$.DatabasePassword" UseConnectionString="False" StatementType="NonQuery" ParameterList="" Database="project$.DatabaseName" DatabaseType="MySQL" SqlStatement="CONCATENATE(&quot;UPDATE orders SET status = 'Ready to Deliver' WHERE id =&quot;,callflow$.OrderID)" ConnectionString="" Server="project$.DatabaseServer" DebugModeActive="False" />
+                  <ns0:ConditionalComponent DebugModeActive="False" x:Name="CheckMailAvailable">
+                    <ns0:ConditionalComponentBranch Condition="GREAT_THAN(LEN(callflow$.ContactEmail),0)" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="MailAvailable">
+                      <ns0:PromptPlaybackComponent AcceptDtmfInput="False" DebugModeActive="False" PromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;TextToSpeechAudioPrompt&quot;&gt;&lt;VoiceName&gt;Amy&lt;/VoiceName&gt;&lt;VoiceType&gt;Standard&lt;/VoiceType&gt;&lt;Format&gt;Text&lt;/Format&gt;&lt;Text&gt;CONCATENATE(&quot;You have ordered &quot;,callflow$.ItemIndex,&quot; items with a cost of $&quot;,callflow$.TotalAmount,&quot;. We are sending the order details to your email address on file.&quot;)&lt;/Text&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" x:Name="PlayOrderDetailsEmail" />
+                      <ns0:UserComponent PublicProperties="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfUserProperty xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;UserProperty&gt;&lt;Name&gt;ContactEmail&lt;/Name&gt;&lt;Value xsi:type=&quot;xsd:string&quot;&gt;callflow$.ContactEmail&lt;/Value&gt;&lt;/UserProperty&gt;&lt;UserProperty&gt;&lt;Name&gt;OrderID&lt;/Name&gt;&lt;Value xsi:type=&quot;xsd:string&quot;&gt;callflow$.OrderID&lt;/Value&gt;&lt;/UserProperty&gt;&lt;UserProperty&gt;&lt;Name&gt;ItemCount&lt;/Name&gt;&lt;Value xsi:type=&quot;xsd:string&quot;&gt;callflow$.ItemIndex&lt;/Value&gt;&lt;/UserProperty&gt;&lt;UserProperty&gt;&lt;Name&gt;TotalAmount&lt;/Name&gt;&lt;Value xsi:type=&quot;xsd:string&quot;&gt;callflow$.TotalAmount&lt;/Value&gt;&lt;/UserProperty&gt;&lt;UserProperty&gt;&lt;Name&gt;ContactID&lt;/Name&gt;&lt;Value xsi:type=&quot;xsd:string&quot;&gt;callflow$.ContactID&lt;/Value&gt;&lt;/UserProperty&gt;&lt;UserProperty&gt;&lt;Name&gt;ContactName&lt;/Name&gt;&lt;Value xsi:type=&quot;xsd:string&quot;&gt;callflow$.ContactName&lt;/Value&gt;&lt;/UserProperty&gt;&lt;/ArrayOfUserProperty&gt;" DebugModeActive="False" RelativeFilePath="SendOrderByMail.comp" x:Name="SendOrderByMail" />
+                    </ns0:ConditionalComponentBranch>
+                    <ns0:ConditionalComponentBranch Condition="" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="MailNotAvailable">
+                      <ns0:PromptPlaybackComponent AcceptDtmfInput="False" DebugModeActive="False" PromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;TextToSpeechAudioPrompt&quot;&gt;&lt;VoiceName&gt;Amy&lt;/VoiceName&gt;&lt;VoiceType&gt;Standard&lt;/VoiceType&gt;&lt;Format&gt;Text&lt;/Format&gt;&lt;Text&gt;CONCATENATE(&quot;You have ordered &quot;,callflow$.ItemIndex,&quot; items with a cost of $&quot;,callflow$.TotalAmount,&quot;. Thank you for ordering and have a nice day!&quot;)&lt;/Text&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" x:Name="PlayOrderDetailsFinal" />
+                    </ns0:ConditionalComponentBranch>
+                  </ns0:ConditionalComponent>
+                </ns0:ConditionalComponentBranch>
+                <ns0:ConditionalComponentBranch Condition="" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="NoItems">
+                  <ns0:DatabaseAccessComponent Port="project$.DatabasePort" Timeout="30" UserName="project$.DatabaseUsername" x:Name="CancelOrder" Password="project$.DatabasePassword" UseConnectionString="False" StatementType="NonQuery" ParameterList="" Database="project$.DatabaseName" DatabaseType="MySQL" SqlStatement="CONCATENATE(&quot;UPDATE orders SET status = 'Order Canceled' WHERE id =&quot;,callflow$.OrderID)" ConnectionString="" Server="project$.DatabaseServer" DebugModeActive="False" />
+                  <ns0:PromptPlaybackComponent AcceptDtmfInput="True" DebugModeActive="False" PromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;TextToSpeechAudioPrompt&quot;&gt;&lt;VoiceName&gt;Amy&lt;/VoiceName&gt;&lt;VoiceType&gt;Standard&lt;/VoiceType&gt;&lt;Format&gt;Text&lt;/Format&gt;&lt;Text&gt;&quot;Thank you for ordering from Super Easy Teleshopping. Have a nice day!&quot;&lt;/Text&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" x:Name="GoodBye" />
+                </ns0:ConditionalComponentBranch>
+              </ns0:ConditionalComponent>
+            </ns0:MenuComponentBranch>
+            <ns0:MenuComponentBranch Option="TimeoutOrInvalidOption" Description="Execution path when the specified option is selected by the user." FriendlyName="" DebugModeActive="False" x:Name="menuComponentBranch3">
+              <ns0:VariableAssignmentComponent VariableName="callflow$.ContinueOrdering" DebugModeActive="False" Expression="true" x:Name="ContinueOrderingOnTimeout" />
+            </ns0:MenuComponentBranch>
+          </ns0:MenuComponent>
+        </ns0:LoopComponent>
+      </ns0:MainFlow>
+    </MainFlow>
+    <ErrorHandlerFlow>
+      <ns0:ErrorHandlerFlow Description="Execution path when an error ocurrs." DebugModeActive="False" x:Name="Shopping" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=16.0.0.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e" />
+    </ErrorHandlerFlow>
+    <DisconnectHandlerFlow>
+      <ns0:DisconnectHandlerFlow Description="Execution path since the call gets disconnected." DebugModeActive="False" x:Name="Shopping" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=16.0.0.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e" />
+    </DisconnectHandlerFlow>
+  </Flows>
+</File>

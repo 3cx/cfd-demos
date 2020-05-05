@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Graphical_Application_Designer_Project>
+  <Version>2.1</Version>
+  <Files>
+    <File path="AuthenticateContact.comp" type="component" />
+    <File path="CheckOrderStatus.comp" type="component" />
+    <File path="ContactLookup.comp" type="component" />
+    <File path="ItemAddNotification.comp" type="component" />
+    <File path="ItemChangeQuantity.comp" type="component" />
+    <File path="Main.flow" type="callflow" />
+    <File path="OrderMultipleItems.comp" type="component" />
+    <File path="OrderSingleItem.comp" type="component" />
+    <File path="SendOrderByMail.comp" type="component" />
+  </Files>
+  <Variables>
+    <ArrayOfVariable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <Variable>
+        <Name>OperatorExtension</Name>
+        <InitialValue>100</InitialValue>
+        <ShowScopeProperty>false</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+      <Variable>
+        <Name>DatabaseServer</Name>
+        <InitialValue>"ENTER_DATABASE_SERVER"</InitialValue>
+        <ShowScopeProperty>false</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+      <Variable>
+        <Name>DatabasePort</Name>
+        <InitialValue>3306</InitialValue>
+        <ShowScopeProperty>false</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+      <Variable>
+        <Name>DatabaseName</Name>
+        <InitialValue>"ENTER_DATABASE_NAME"</InitialValue>
+        <ShowScopeProperty>false</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+      <Variable>
+        <Name>DatabaseUsername</Name>
+        <InitialValue>"ENTER_USER_NAME"</InitialValue>
+        <ShowScopeProperty>false</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+      <Variable>
+        <Name>DatabasePassword</Name>
+        <InitialValue>"ENTER_PASSWORD"</InitialValue>
+        <ShowScopeProperty>false</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+      </Variable>
+    </ArrayOfVariable>
+  </Variables>
+  <DebugBuildSuccessful>False</DebugBuildSuccessful>
+  <ReleaseBuildSuccessful>True</ReleaseBuildSuccessful>
+  <DebugBuildNumber>0</DebugBuildNumber>
+  <ReleaseBuildNumber>27</ReleaseBuildNumber>
+  <ChangedSinceLastDebugBuild>True</ChangedSinceLastDebugBuild>
+  <Extension>
+  </Extension>
+  <AmazonClientID>ENTER_CLIENT_ID</AmazonClientID>
+  <AmazonClientSecret>ENTER_CLIENT_SECRET</AmazonClientSecret>
+  <AmazonRegion>us-east-2</AmazonRegion>
+</Graphical_Application_Designer_Project>
