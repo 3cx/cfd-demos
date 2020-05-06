@@ -5,7 +5,7 @@ Combine [CFD components](https://www.3cx.com/docs/manual/cfd-components/) to ena
 [Read more](https://www.3cx.com/docs/cfd-order-by-phone-demo/)
 
 ## Video Guide
-[![Setting up Phone Ordering](http://img.youtube.com/vi/sWmIJ_pxdYo/0.jpg)](https://www.youtube.com/watch?v=sWmIJ_pxdYo)
+[![Setting up Phone Ordering](http://i3.ytimg.com/vi/nAed47UoIh0/maxresdefault.jpg)](https://www.youtube.com/watch?v=nAed47UoIh0)
 
 ## Additional resources
 * [Installing & Updating 3CX Call Flow Designer](https://www.3cx.com/docs/manual/cfd-installation/#h.kql7rxbqfopm)
