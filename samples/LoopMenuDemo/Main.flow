@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<File>
+  <Version>2.1</Version>
+  <Variables>
+    <ArrayOfVariable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <Variable>
+        <Name>ContinueLoopingMainMenu</Name>
+        <InitialValue>true</InitialValue>
+        <ShowScopeProperty>false</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+        <HelpText />
+      </Variable>
+      <Variable>
+        <Name>ContinueLoopingSubMenu</Name>
+        <InitialValue>true</InitialValue>
+        <ShowScopeProperty>false</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+        <HelpText />
+      </Variable>
+    </ArrayOfVariable>
+  </Variables>
+  <Flows>
+    <MainFlow>
+      <ns0:MainFlow Description="Callflow execution path." DebugModeActive="False" x:Name="Main" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=18.0.45.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e">
+        <ns0:LoopComponent Condition="callflow$.ContinueLoopingMainMenu" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="MainLoop">
+          <ns0:VariableAssignmentComponent VariableName="callflow$.ContinueLoopingMainMenu" DebugModeActive="False" Expression="false" x:Name="NoLoopMainMenu" />
+          <ns0:MenuComponent AcceptDtmfInput="True" IsValidOption_Star="False" Timeout="5" x:Name="MainMenu" SubsequentPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;AudioFilePrompt&quot;&gt;&lt;AudioFileName&gt;main_menu_subsequent_prompt.wav&lt;/AudioFileName&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" InvalidDigitPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;AudioFilePrompt&quot;&gt;&lt;AudioFileName&gt;invalid_option.wav&lt;/AudioFileName&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" IsValidOption_8="False" IsValidOption_9="False" IsValidOption_Pound="False" InitialPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;AudioFilePrompt&quot;&gt;&lt;AudioFileName&gt;main_menu_initial_prompt.wav&lt;/AudioFileName&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" TimeoutPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;AudioFilePrompt&quot;&gt;&lt;AudioFileName&gt;timeout.wav&lt;/AudioFileName&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" IsValidOption_3="True" IsValidOption_0="False" IsValidOption_1="True" IsValidOption_6="False" IsValidOption_7="False" IsValidOption_4="False" IsValidOption_5="False" IsValidOption_2="True" DebugModeActive="False" MaxRetryCount="3">
+            <ns0:MenuComponentBranch Option="Option1" Description="Execution path when the specified option is selected by the user." FriendlyName="Play Message" DebugModeActive="False" x:Name="menuComponentBranch1">
+              <ns0:PromptPlaybackComponent AcceptDtmfInput="True" DebugModeActive="False" PromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;AudioFilePrompt&quot;&gt;&lt;AudioFileName&gt;main_menu_message.wav&lt;/AudioFileName&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" x:Name="PlayMainMenuMessage" />
+            </ns0:MenuComponentBranch>
+            <ns0:MenuComponentBranch Option="Option2" Description="Execution path when the specified option is selected by the user." FriendlyName="Repeat" DebugModeActive="False" x:Name="menuComponentBranch2">
+              <ns0:VariableAssignmentComponent VariableName="callflow$.ContinueLoopingMainMenu" DebugModeActive="False" Expression="true" x:Name="LoopMainMenu" />
+            </ns0:MenuComponentBranch>
+            <ns0:MenuComponentBranch Option="Option3" Description="Execution path when the specified option is selected by the user." FriendlyName="Sub Menu" DebugModeActive="False" x:Name="menuComponentBranch4">
+              <ns0:VariableAssignmentComponent VariableName="callflow$.ContinueLoopingSubMenu" DebugModeActive="False" Expression="true" x:Name="LoopSubMenu" />
+              <ns0:LoopComponent Condition="callflow$.ContinueLoopingSubMenu" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="SubMenuLoop">
+                <ns0:VariableAssignmentComponent VariableName="callflow$.ContinueLoopingSubMenu" DebugModeActive="False" Expression="false" x:Name="NoLoopSubMenu" />
+                <ns0:MenuComponent AcceptDtmfInput="True" IsValidOption_Star="False" Timeout="5" x:Name="SubMenu" SubsequentPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;AudioFilePrompt&quot;&gt;&lt;AudioFileName&gt;sub_menu_subsequent_prompt.wav&lt;/AudioFileName&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" InvalidDigitPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;AudioFilePrompt&quot;&gt;&lt;AudioFileName&gt;invalid_option.wav&lt;/AudioFileName&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" IsValidOption_8="False" IsValidOption_9="False" IsValidOption_Pound="False" InitialPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;AudioFilePrompt&quot;&gt;&lt;AudioFileName&gt;sub_menu_initial_prompt.wav&lt;/AudioFileName&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" TimeoutPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;AudioFilePrompt&quot;&gt;&lt;AudioFileName&gt;timeout.wav&lt;/AudioFileName&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" IsValidOption_3="True" IsValidOption_0="False" IsValidOption_1="True" IsValidOption_6="False" IsValidOption_7="False" IsValidOption_4="False" IsValidOption_5="False" IsValidOption_2="True" DebugModeActive="False" MaxRetryCount="3">
+                  <ns0:MenuComponentBranch Option="Option1" Description="Execution path when the specified option is selected by the user." FriendlyName="Play Message" DebugModeActive="False" x:Name="menuComponentBranch5">
+                    <ns0:PromptPlaybackComponent AcceptDtmfInput="True" DebugModeActive="False" PromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;AudioFilePrompt&quot;&gt;&lt;AudioFileName&gt;sub_menu_message.wav&lt;/AudioFileName&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" x:Name="PlaySubMenuMessage" />
+                  </ns0:MenuComponentBranch>
+                  <ns0:MenuComponentBranch Option="Option2" Description="Execution path when the specified option is selected by the user." FriendlyName="Repeat" DebugModeActive="False" x:Name="menuComponentBranch6">
+                    <ns0:VariableAssignmentComponent VariableName="callflow$.ContinueLoopingSubMenu" DebugModeActive="False" Expression="true" x:Name="LoopSubMenu2" />
+                  </ns0:MenuComponentBranch>
+                  <ns0:MenuComponentBranch Option="Option3" Description="Execution path when the specified option is selected by the user." FriendlyName="Main Menu" DebugModeActive="False" x:Name="menuComponentBranch8">
+                    <ns0:VariableAssignmentComponent VariableName="callflow$.ContinueLoopingMainMenu" DebugModeActive="False" Expression="true" x:Name="LoopMainMenu2" />
+                  </ns0:MenuComponentBranch>
+                  <ns0:MenuComponentBranch Option="TimeoutOrInvalidOption" Description="Execution path when the specified option is selected by the user." FriendlyName="" DebugModeActive="False" x:Name="menuComponentBranch7">
+                    <ns0:DisconnectCallComponent x:Name="DisconnectCall2" DebugModeActive="False" />
+                  </ns0:MenuComponentBranch>
+                </ns0:MenuComponent>
+              </ns0:LoopComponent>
+            </ns0:MenuComponentBranch>
+            <ns0:MenuComponentBranch Option="TimeoutOrInvalidOption" Description="Execution path when the specified option is selected by the user." FriendlyName="" DebugModeActive="False" x:Name="menuComponentBranch3">
+              <ns0:DisconnectCallComponent x:Name="DisconnectCall1" DebugModeActive="False" />
+            </ns0:MenuComponentBranch>
+          </ns0:MenuComponent>
+        </ns0:LoopComponent>
+      </ns0:MainFlow>
+    </MainFlow>
+    <ErrorHandlerFlow>
+      <ns0:ErrorHandlerFlow Description="Execution path when an error ocurrs." DebugModeActive="False" x:Name="Main" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=18.0.45.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e" />
+    </ErrorHandlerFlow>
+    <DisconnectHandlerFlow>
+      <ns0:DisconnectHandlerFlow Description="Execution path since the call gets disconnected." DebugModeActive="False" x:Name="Main" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=18.0.45.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e" />
+    </DisconnectHandlerFlow>
+  </Flows>
+</File>
