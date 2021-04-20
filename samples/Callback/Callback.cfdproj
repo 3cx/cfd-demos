@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Graphical_Application_Designer_Project>
+  <Version>2.1</Version>
+  <Files>
+    <File path="AskForDate.comp" type="component" />
+    <File path="AskForTime.comp" type="component" />
+    <File path="CallbackDialer.dialer" type="dialer" dialer_mode="PowerDialer" pause_between_dialer_execution="30" parallel_dialers="1" predictive_dialer_queue="" predictive_dialer_optimization="ForAgents" />
+    <File path="Main.flow" type="callflow" />
+    <File path="StoreCallback.comp" type="component" />
+  </Files>
+  <Variables>
+    <ArrayOfVariable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <Variable>
+        <Name>GlobalPropertyName</Name>
+        <InitialValue>"CFD_SCHEDULED_CALLBACKS"</InitialValue>
+        <Accessibility>ReadOnly</Accessibility>
+        <ShowScopeProperty>false</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+        <HelpText />
+      </Variable>
+    </ArrayOfVariable>
+  </Variables>
+  <DebugBuildSuccessful>False</DebugBuildSuccessful>
+  <ReleaseBuildSuccessful>False</ReleaseBuildSuccessful>
+  <DebugBuildNumber>0</DebugBuildNumber>
+  <ReleaseBuildNumber>5</ReleaseBuildNumber>
+  <ChangedSinceLastDebugBuild>True</ChangedSinceLastDebugBuild>
+  <DoNotAskForExtension>True</DoNotAskForExtension>
+  <Extension>852</Extension>
+  <OnlineServicesTextToSpeechEngine>GoogleCloud</OnlineServicesTextToSpeechEngine>
+  <OnlineServicesSpeechToTextEngine>GoogleCloud</OnlineServicesSpeechToTextEngine>
+  <AmazonClientID>
+  </AmazonClientID>
+  <AmazonClientSecret>
+  </AmazonClientSecret>
+  <AmazonRegion>us-east-2</AmazonRegion>
+  <AmazonLexicons>
+  </AmazonLexicons>
+  <GoogleCloudServiceAccountKeyFileName>
+  </GoogleCloudServiceAccountKeyFileName>
+  <GoogleCloudServiceAccountKeyJSON>
+  </GoogleCloudServiceAccountKeyJSON>
+</Graphical_Application_Designer_Project>

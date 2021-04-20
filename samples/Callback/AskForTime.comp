@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<File>
+  <Version>2.1</Version>
+  <Variables>
+    <ArrayOfVariable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <Variable>
+        <Name>HasToAskTime</Name>
+        <InitialValue>true</InitialValue>
+        <Scope>Private</Scope>
+        <ShowScopeProperty>true</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+        <HelpText />
+      </Variable>
+      <Variable>
+        <Name>In_SelectedDate</Name>
+        <ShowScopeProperty>true</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+        <HelpText />
+      </Variable>
+      <Variable>
+        <Name>Out_SelectedDateTime</Name>
+        <ShowScopeProperty>true</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+        <HelpText />
+      </Variable>
+    </ArrayOfVariable>
+  </Variables>
+  <Flows>
+    <MainFlow>
+      <ns0:MainFlow Description="Callflow execution path." DebugModeActive="False" x:Name="AskForTime" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=18.0.47.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e">
+        <ns0:LoopComponent Condition="callflow$.HasToAskTime" Description="Execution path when the specified condition is met." Tag="" DebugModeActive="False" x:Name="AskTimeLoop">
+          <ns0:VoiceInputComponent AcceptDtmfInput="False" StopDigit="None" IsValidDigit_3="False" IsValidDigit_0="False" IsValidDigit_1="False" IsValidDigit_Pound="False" IsValidDigit_7="False" IsValidDigit_4="False" IsValidDigit_5="False" SubsequentPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;TextToSpeechAudioPrompt&quot;&gt;&lt;VoiceName&gt;en-US-Standard-C&lt;/VoiceName&gt;&lt;VoiceType&gt;Standard&lt;/VoiceType&gt;&lt;Format&gt;Text&lt;/Format&gt;&lt;Text&gt;&quot;Please, say for what time you want to schedule your callback, mentioning the hour and minutes. For example, 15:30.&quot;&lt;/Text&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" IsValidDigit_2="False" IsValidDigit_6="False" InputTimeout="3" Dictionary="" MinDigits="3" InitialPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;TextToSpeechAudioPrompt&quot;&gt;&lt;VoiceName&gt;en-US-Standard-C&lt;/VoiceName&gt;&lt;VoiceType&gt;Standard&lt;/VoiceType&gt;&lt;Format&gt;Text&lt;/Format&gt;&lt;Text&gt;&quot;Please, say for what time you want to schedule your callback.&quot;&lt;/Text&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" LanguageCode="en-US" DtmfTimeout="3" MaxRetryCount="3" DebugModeActive="False" MaxDigits="6" Tag="" IsValidDigit_8="False" Hints="$TIME" InvalidInputPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;TextToSpeechAudioPrompt&quot;&gt;&lt;VoiceName&gt;en-US-Standard-C&lt;/VoiceName&gt;&lt;VoiceType&gt;Standard&lt;/VoiceType&gt;&lt;Format&gt;Text&lt;/Format&gt;&lt;Text&gt;&quot;Sorry, we couldn't understand what you said.&quot;&lt;/Text&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" IsValidDigit_Star="False" TimeoutPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;TextToSpeechAudioPrompt&quot;&gt;&lt;VoiceName&gt;en-US-Standard-C&lt;/VoiceName&gt;&lt;VoiceType&gt;Standard&lt;/VoiceType&gt;&lt;Format&gt;Text&lt;/Format&gt;&lt;Text&gt;&quot;Sorry, we couldn't hear you.&quot;&lt;/Text&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" IsValidDigit_9="False" x:Name="RequestTime">
+            <ns0:ComponentBranch DisplayedText="Valid Input" Description="Execution path when the specified branch is activated." Tag="" DebugModeActive="False" x:Name="componentBranch3">
+              <ns0:ExecuteCSharpCodeComponent ReturnsValue="True" Code="string dateStr = ((DateTime)selectedDate).ToString(&quot;yyyy-MM-dd&quot;);&#xD;&#xA;string[] validformats = new[] &#xD;&#xA;{&#xD;&#xA;    &quot;yyyy-MM-dd H:mm&quot;,&#xD;&#xA;    &quot;yyyy-MM-dd H&quot;,&#xD;&#xA;    &quot;yyyy-MM-dd h:mm tt&quot;,&#xD;&#xA;    &quot;yyyy-MM-dd h tt&quot;&#xD;&#xA;};&#xD;&#xA;return DateTime.TryParseExact(dateStr + &quot; &quot; + input.Replace(&quot;.&quot;, &quot;&quot;), validformats, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out _);&#xD;&#xA;" ParameterList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfScriptParameter xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;ScriptParameter&gt;&lt;Name&gt;selectedDate&lt;/Name&gt;&lt;Value&gt;callflow$.In_SelectedDate&lt;/Value&gt;&lt;Type&gt;Object&lt;/Type&gt;&lt;/ScriptParameter&gt;&lt;ScriptParameter&gt;&lt;Name&gt;input&lt;/Name&gt;&lt;Value&gt;RequestTime.RecognizedText&lt;/Value&gt;&lt;Type&gt;String&lt;/Type&gt;&lt;/ScriptParameter&gt;&lt;/ArrayOfScriptParameter&gt;" MethodName="IsValidTime" Tag="" DebugModeActive="False" x:Name="IsValidTime" />
+              <ns0:ConditionalComponent Tag="" DebugModeActive="False" x:Name="CheckValidTime">
+                <ns0:ConditionalComponentBranch Condition="IsValidTime.ReturnValue" Description="Execution path when the specified condition is met." Tag="" DebugModeActive="False" x:Name="ValidTime">
+                  <ns0:ExecuteCSharpCodeComponent ReturnsValue="True" Code="string dateStr = ((DateTime)selectedDate).ToString(&quot;yyyy-MM-dd&quot;);&#xD;&#xA;string[] validformats = new[] &#xD;&#xA;{&#xD;&#xA;    &quot;yyyy-MM-dd H:mm&quot;,&#xD;&#xA;    &quot;yyyy-MM-dd H&quot;,&#xD;&#xA;    &quot;yyyy-MM-dd h:mm tt&quot;,&#xD;&#xA;    &quot;yyyy-MM-dd h tt&quot;&#xD;&#xA;};&#xD;&#xA;return DateTime.ParseExact(dateStr + &quot; &quot; + input.Replace(&quot;.&quot;, &quot;&quot;), validformats, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None);&#xD;&#xA;" ParameterList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfScriptParameter xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;ScriptParameter&gt;&lt;Name&gt;selectedDate&lt;/Name&gt;&lt;Value&gt;callflow$.In_SelectedDate&lt;/Value&gt;&lt;Type&gt;Object&lt;/Type&gt;&lt;/ScriptParameter&gt;&lt;ScriptParameter&gt;&lt;Name&gt;input&lt;/Name&gt;&lt;Value&gt;RequestTime.RecognizedText&lt;/Value&gt;&lt;Type&gt;String&lt;/Type&gt;&lt;/ScriptParameter&gt;&lt;/ArrayOfScriptParameter&gt;" MethodName="ConvertToTime" Tag="" DebugModeActive="False" x:Name="ConvertToTime" />
+                  <ns0:VariableAssignmentComponent VariableName="callflow$.Out_SelectedDateTime" Tag="" DebugModeActive="False" Expression="ConvertToTime.ReturnValue" x:Name="SetDateAndTime" />
+                  <ns0:ExecuteCSharpCodeComponent ReturnsValue="True" Code="return ((DateTime)datetime).ToString(&quot;MMMM d, yyyy HH:mm&quot;);" ParameterList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfScriptParameter xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;ScriptParameter&gt;&lt;Name&gt;datetime&lt;/Name&gt;&lt;Value&gt;ConvertToTime.ReturnValue&lt;/Value&gt;&lt;Type&gt;Object&lt;/Type&gt;&lt;/ScriptParameter&gt;&lt;/ArrayOfScriptParameter&gt;" MethodName="ConvertDateAndTimeToString" Tag="" DebugModeActive="False" x:Name="ConvertDateAndTimeToString" />
+                  <ns0:PromptPlaybackComponent Tag="" AcceptDtmfInput="False" DebugModeActive="False" PromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;TextToSpeechAudioPrompt&quot;&gt;&lt;VoiceName&gt;en-US-Standard-C&lt;/VoiceName&gt;&lt;VoiceType&gt;Standard&lt;/VoiceType&gt;&lt;Format&gt;Text&lt;/Format&gt;&lt;Text&gt;CONCATENATE(&quot;We will schedule your callback on &quot;,ConvertDateAndTimeToString.ReturnValue)&lt;/Text&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" x:Name="PlayDateAndTime" />
+                  <ns0:VariableAssignmentComponent VariableName="callflow$.HasToAskTime" Tag="" DebugModeActive="False" Expression="false" x:Name="ExitAskTimeLoop" />
+                </ns0:ConditionalComponentBranch>
+                <ns0:ConditionalComponentBranch Condition="" Description="Execution path when the specified condition is met." Tag="" DebugModeActive="False" x:Name="InvalidTime">
+                  <ns0:PromptPlaybackComponent Tag="" AcceptDtmfInput="True" DebugModeActive="False" PromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;TextToSpeechAudioPrompt&quot;&gt;&lt;VoiceName&gt;en-US-Standard-C&lt;/VoiceName&gt;&lt;VoiceType&gt;Standard&lt;/VoiceType&gt;&lt;Format&gt;Text&lt;/Format&gt;&lt;Text&gt;&quot;Sorry, we couldn't understand the time you said. Please try again.&quot;&lt;/Text&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" x:Name="PlayInvalidTime" />
+                </ns0:ConditionalComponentBranch>
+              </ns0:ConditionalComponent>
+            </ns0:ComponentBranch>
+            <ns0:ComponentBranch DisplayedText="Invalid Input" Description="Execution path when the specified branch is activated." Tag="" DebugModeActive="False" x:Name="componentBranch4">
+              <ns0:PromptPlaybackComponent Tag="" AcceptDtmfInput="True" DebugModeActive="False" PromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;TextToSpeechAudioPrompt&quot;&gt;&lt;VoiceName&gt;en-US-Standard-C&lt;/VoiceName&gt;&lt;VoiceType&gt;Standard&lt;/VoiceType&gt;&lt;Format&gt;Text&lt;/Format&gt;&lt;Text&gt;&quot;Sorry, we couldn't schedule the callback, please call again later.&quot;&lt;/Text&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" x:Name="SorryTryLater" />
+              <ns0:DisconnectCallComponent Tag="" DebugModeActive="False" x:Name="DisconnectCallOnError" />
+            </ns0:ComponentBranch>
+          </ns0:VoiceInputComponent>
+        </ns0:LoopComponent>
+      </ns0:MainFlow>
+    </MainFlow>
+    <ErrorHandlerFlow>
+      <ns0:ErrorHandlerFlow Description="Execution path when an error ocurrs." DebugModeActive="False" x:Name="AskForTime" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=18.0.47.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e" />
+    </ErrorHandlerFlow>
+    <DisconnectHandlerFlow>
+      <ns0:DisconnectHandlerFlow Description="Execution path since the call gets disconnected." DebugModeActive="False" x:Name="AskForTime" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=18.0.47.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e" />
+    </DisconnectHandlerFlow>
+  </Flows>
+</File>

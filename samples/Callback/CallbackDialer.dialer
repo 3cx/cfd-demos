@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<File>
+  <Version>2.1</Version>
+  <Variables>
+    <ArrayOfVariable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+  </Variables>
+  <Flows>
+    <MainFlow>
+      <ns0:MainFlow Description="Callflow execution path." DebugModeActive="False" x:Name="CallbackDialer" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=18.0.47.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e">
+        <ns0:TcxGetGlobalPropertyComponent Tag="" PropertyName="project$.GlobalPropertyName" DebugModeActive="False" x:Name="GetScheduledCallbacks" />
+        <ns0:ExecuteCSharpCodeComponent ReturnsValue="True" Code="string[] callbackArray = callbacks.Split(',');&#xD;&#xA;foreach (string callback in callbackArray)&#xD;&#xA;{&#xD;&#xA;    string[] callbackParts = callback.Split('=');&#xD;&#xA;    if (callbackParts.Length == 2)&#xD;&#xA;    {&#xD;&#xA;        string number = callbackParts[0];&#xD;&#xA;        DateTime dt = DateTime.ParseExact(callbackParts[1], &quot;yyyyMMddHHmmss&quot;, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None);&#xD;&#xA;        if (dt &lt;= DateTime.Now) return number;&#xD;&#xA;    }&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;return &quot;&quot;;" ParameterList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfScriptParameter xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;ScriptParameter&gt;&lt;Name&gt;callbacks&lt;/Name&gt;&lt;Value&gt;GetScheduledCallbacks.PropertyValue&lt;/Value&gt;&lt;Type&gt;String&lt;/Type&gt;&lt;/ScriptParameter&gt;&lt;/ArrayOfScriptParameter&gt;" MethodName="GetNumberToCall" Tag="" DebugModeActive="False" x:Name="GetNumberToCall" />
+        <ns0:ConditionalComponent Tag="" DebugModeActive="False" x:Name="CheckNumberToCall">
+          <ns0:ConditionalComponentBranch Condition="GREAT_THAN(LEN(GetNumberToCall.ReturnValue),0)" Description="Execution path when the specified condition is met." Tag="" DebugModeActive="False" x:Name="ValidNumber">
+            <ns0:ExecuteCSharpCodeComponent ReturnsValue="True" Code="string[] callbackArray = callbacks.Split(',');&#xD;&#xA;foreach (string callback in callbackArray)&#xD;&#xA;{&#xD;&#xA;    string[] callbackParts = callback.Split('=');&#xD;&#xA;    if (callbackParts.Length == 2)&#xD;&#xA;    {&#xD;&#xA;        if (number == callbackParts[0])&#xD;&#xA;        {&#xD;&#xA;            DateTime dt = DateTime.ParseExact(callbackParts[1], &quot;yyyyMMddHHmmss&quot;, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None);&#xD;&#xA;            if (dt &lt;= DateTime.Now)&#xD;&#xA;            {&#xD;&#xA;                return callbacks.Replace(callback, &quot;&quot;).Replace(&quot;,,&quot;,&quot;,&quot;);&#xD;&#xA;            }&#xD;&#xA;        }&#xD;&#xA;    }&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;return callbacks;" ParameterList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfScriptParameter xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;ScriptParameter&gt;&lt;Name&gt;number&lt;/Name&gt;&lt;Value&gt;GetNumberToCall.ReturnValue&lt;/Value&gt;&lt;Type&gt;String&lt;/Type&gt;&lt;/ScriptParameter&gt;&lt;ScriptParameter&gt;&lt;Name&gt;callbacks&lt;/Name&gt;&lt;Value&gt;GetScheduledCallbacks.PropertyValue&lt;/Value&gt;&lt;Type&gt;String&lt;/Type&gt;&lt;/ScriptParameter&gt;&lt;/ArrayOfScriptParameter&gt;" MethodName="RemoveNumberToCall" Tag="" DebugModeActive="False" x:Name="RemoveNumberToCall" />
+            <ns0:TcxSetGlobalPropertyComponent PropertyValue="RemoveNumberToCall.ReturnValue" Tag="" PropertyName="project$.GlobalPropertyName" DebugModeActive="False" x:Name="UpdateScheduledCallbacks" />
+            <ns0:MakeCallComponent Origin="GetNumberToCall.ReturnValue" Tag="" DebugModeActive="False" Timeout="30" Destination="&quot;802&quot;" x:Name="MakeCallback" />
+          </ns0:ConditionalComponentBranch>
+        </ns0:ConditionalComponent>
+      </ns0:MainFlow>
+    </MainFlow>
+    <ErrorHandlerFlow>
+      <ns0:ErrorHandlerFlow Description="Execution path when an error ocurrs." DebugModeActive="False" x:Name="CallbackDialer" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=18.0.47.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e" />
+    </ErrorHandlerFlow>
+  </Flows>
+</File>
